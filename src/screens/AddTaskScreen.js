@@ -101,6 +101,7 @@ const AddTask = ({ navigation }) => {
                     fontSize: 14,
                     marginBottom: 15 }}
                 returnKeyType="next"
+                keyboardType="number-pad"
                 />
             </View> 
         </View>

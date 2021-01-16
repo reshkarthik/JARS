@@ -18,7 +18,7 @@ const navigator = createStackNavigator(
     ForgotPw
   },
   {
-    initialRouteName: 'ForgotPw',
+    initialRouteName: 'AddTask',
     defaultNavigationOptions: {
       headerShown: false,
     },
