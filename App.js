@@ -4,18 +4,20 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import LogIn from './src/screens/LogInScreen.js';
-import TimeRestriction from './src/screens/TimeRestrictionScreen.js';
 
+import TimeRestriction from './src/screens/TimeRestrictionScreen.js';
+import SignUp from './src/screens/SignUpScreen'
 
 const navigator = createStackNavigator(
   {
     LogIn,
-    TimeRestriction
+    TimeRestriction,
+    SignUp
   },
   {
-    initialRouteName: 'TimeRestriction',
+    initialRouteName: 'SignUp',
     defaultNavigationOptions: {
-      title: 'calenJARS',
+      headerShown: false,
     },
   },
 );
