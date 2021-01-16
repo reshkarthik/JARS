@@ -3,8 +3,6 @@ const {createRestrictions, updateRestriction, viewRestrictions} = require('./Res
 const {createEvent, updateEvent, viewEvent, deleteEvent} = require('./Event');
 const {createTask, updateTask} = require('./Task');
 const {createSTask} = require('./ScheduledTask');
-
-const jwt = require('jsonwebtoken');
 var userRef = db.ref().child("users");
 
 
@@ -12,7 +10,7 @@ function createUser(email, password) {
     const userId = userRef.push().key;
     db.ref('users/' + userId).set({
         email: email,
-        password: jwt.sign(password, 'calenJARS'),
+        password: password + 'calenJARS',
         tasks: {},
         events: {},
         restrictions: userId
