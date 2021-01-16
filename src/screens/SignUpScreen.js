@@ -15,6 +15,9 @@ const { width } = dimensions;
 const { height } = dimensions;
 
 const SignUp = ({ navigation }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [conPassword, setConPassword] = useState('');
    
     return (
         <SafeAreaView style={styles.container}>
@@ -39,7 +42,7 @@ const SignUp = ({ navigation }) => {
         returnKeyType="next"
         textContentType='newPassword'
         placeholder=" enter new password"
-        value={email}
+        value={password}
         />
         {/* confirm new password */}
          <TextInput 
@@ -47,7 +50,7 @@ const SignUp = ({ navigation }) => {
         returnKeyType="next"
         textContentType='newPassword'
         placeholder=" confirm new password"
-        value={email}
+        value={conPassword}
         />
        {/* create account button */}
         <TouchableHighlight style={styles.loginButtonWrapper}>

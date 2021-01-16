@@ -7,15 +7,16 @@ import LogIn from './src/screens/LogInScreen.js';
 
 import TimeRestriction from './src/screens/TimeRestrictionScreen.js';
 import SignUp from './src/screens/SignUpScreen'
-
+import AddTask from './src/screens/AddTaskScreen'
 const navigator = createStackNavigator(
   {
     LogIn,
     TimeRestriction,
-    SignUp
+    SignUp,
+    AddTask,
   },
   {
-    initialRouteName: 'SignUp',
+    initialRouteName: 'AddTask',
     defaultNavigationOptions: {
       headerShown: false,
     },
