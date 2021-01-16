@@ -8,6 +8,9 @@ import TimeRestriction from './src/screens/TimeRestrictionScreen.js';
 import SignUp from './src/screens/SignUpScreen'
 import AddTask from './src/screens/AddTaskScreen'
 import ForgotPw from './src/screens/ForgotPasswordScreen.js';
+import Home from './src/screens/HomeScreen.js';
+import Todo from './src/screens/TodoScreen.js';
+import Today from './src/screens/TodayScreen.js';
 
 const navigator = createStackNavigator(
   {
@@ -15,10 +18,13 @@ const navigator = createStackNavigator(
     TimeRestriction,
     SignUp,
     AddTask,
-    ForgotPw
+    ForgotPw,
+    Home,
+    Todo,
+    Today
   },
   {
-    initialRouteName: 'ForgotPw',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       headerShown: false,
     },
