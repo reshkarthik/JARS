@@ -30,7 +30,6 @@ const SignUp = ({ navigation }) => {
         <TextInput 
         style={styles.textInputStyle}
         returnKeyType="next"
-        textContentType='emailAddress'
         keyboardType="email-address" 
         placeholder=" enter email address"
         value={email}
@@ -40,7 +39,6 @@ const SignUp = ({ navigation }) => {
         <TextInput 
         style={styles.textInputStyle}
         returnKeyType="next"
-        textContentType='newPassword'
         placeholder=" enter new password"
         value={password}
         />
@@ -48,7 +46,6 @@ const SignUp = ({ navigation }) => {
          <TextInput 
         style={styles.textInputStyle}
         returnKeyType="next"
-        textContentType='newPassword'
         placeholder=" confirm new password"
         value={conPassword}
         />
@@ -101,7 +98,6 @@ const styles = StyleSheet.create({
         height: height * 0.052,
         justifyContent: 'center',
         marginBottom: 10,
-
       },
       noAccount: {
         flexDirection: 'row',
