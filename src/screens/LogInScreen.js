@@ -52,12 +52,12 @@ const LogIn = ({ navigation }) => {
                 <View style={styles.accountWrapper}>
                     <View style={styles.noAccount}>
                         <Text>No Account? </Text>
-                        <Text style={styles.boldText}>
+                        <Text style={styles.boldText} onPress={() => navigation.replace('SignUp')}>
                             Sign up
                         </Text>
                     </View>
                     {/* Forgot Password */}
-                    <Text style={styles.boldText}>
+                    <Text style={styles.boldText} onPress={() => navigation.replace('ForgotPw')}>
                         Forgot Password?
                     </Text>
                 </View>
