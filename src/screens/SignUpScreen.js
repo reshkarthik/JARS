@@ -1,68 +1,70 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-    StyleSheet,
-    View,
-    Image,
-    Text,
-    Button,
-    Dimensions,
-    TextInput,
-    TouchableHighlight,
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Button,
+  Dimensions,
+  TextInput,
+  TouchableHighlight,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const dimensions = Dimensions.get('window');
 const { width } = dimensions;
 const { height } = dimensions;
 
-const SignUp = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [conPassword, setConPassword] = useState('');
-   
-    return (
-        <SafeAreaView style={styles.container}>
-   
-        <Image source={require('../../images/calendar_logo.png')}/>
-        <Text style={styles.title}> Sign Up </Text>
+const buttonColor = Platform.OS === 'ios' ? '#ffffff' : '#204969';
 
-    
-        {/* enter your email */}
-        <TextInput 
+const SignUp = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [conPassword, setConPassword] = useState('');
+
+  return (
+    <SafeAreaView style={styles.container}>
+
+      <Image source={require('../../images/calendar_logo.png')} />
+      <Text style={styles.title}> Sign Up </Text>
+
+
+      {/* enter your email */}
+      <TextInput
         style={styles.textInputStyle}
         returnKeyType="next"
         keyboardType="email-address" 
         placeholder=" enter email address"
         value={email}
-        />
-        
-        {/* enter new password */}
-        <TextInput 
+      />
+
+      {/* enter new password */}
+      <TextInput
         style={styles.textInputStyle}
         returnKeyType="next"
         placeholder=" enter new password"
         value={password}
-        />
-        {/* confirm new password */}
-         <TextInput 
+      />
+      {/* confirm new password */}
+      <TextInput
         style={styles.textInputStyle}
         returnKeyType="next"
         placeholder=" confirm new password"
         value={conPassword}
-        />
-       {/* create account button */}
-        <TouchableHighlight style={styles.loginButtonWrapper}>
-            <Button title="CREATE ACCOUNT" color="#204969" />
-        </TouchableHighlight>
+      />
+      {/* create account button */}
+      <TouchableHighlight style={styles.loginButtonWrapper}>
+        <Button title="CREATE ACCOUNT" color={buttonColor} />
+      </TouchableHighlight>
 
-        {/* no account text */}
-        <View style={styles.noAccount}>
-          <Text> Already have an account? </Text>
-          <Text style={styles.textWeight} onPress={() => navigation.replace('LogIn')}>
-            Login
+      {/* no account text */}
+      <View style={styles.noAccount}>
+        <Text> Already have an account? </Text>
+        <Text style={styles.boldText} onPress={() => navigation.replace('LogIn')}>
+          Login
           </Text>
-        </View>
-        </SafeAreaView>
-    );
+      </View>
+    </SafeAreaView>
+  );
 }
 
 
