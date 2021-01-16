@@ -63,6 +63,12 @@ function createRestrictions(userId) {
       return;
   }
 
+function updateRestriction(userId, day, newRestrictions){
+    var updates = {};
+    updates['/'+userId+"/"+day] = newRestrictions;
+    return restrictionRef.update(updates)
+}
+
 function viewRestrictions(restrictionId){
     return restrictionRef.child(restrictionId).on("value", function(snapshot) {
         console.log(snapshot.val());
@@ -71,4 +77,4 @@ function viewRestrictions(restrictionId){
       });
 }
 
-module.exports = createRestrictions;
+module.exports = {createRestrictions, updateRestriction, viewRestrictions};

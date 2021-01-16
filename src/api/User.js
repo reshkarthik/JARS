@@ -1,5 +1,5 @@
 const db = require('../config.js');
-const createRestrictions = require('./Restriction');
+const {createRestrictions, updateRestriction, viewRestrictions} = require('./Restriction');
 const jwt = require('jsonwebtoken');
 var userRef = db.ref().child("users");
 
@@ -24,7 +24,13 @@ function createUser(email, password) {
       return;
   }
 
-createUser("reshma", "reshma")
+updateRestriction("-MRBXtcZ1aJ4QKfPlo-r", "Monday", {
+    Before: new Date().toISOString(),
+    After: new Date().toISOString(),
+    Lunch: [new Date().toISOString(),new Date().toISOString()], 
+    Dinner: [new Date().toISOString(), new Date().toISOString()],
+    Break: 100
+})
 function viewUser(userId){
     return userRef.child(userId).on("value", function(snapshot) {
         console.log(snapshot.val());
