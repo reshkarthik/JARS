@@ -7,7 +7,6 @@ import {
     Dimensions,
     Button,
     ScrollView,
-    KeyboardAvoidingView,
     TouchableHighlight,
     KeyboardAvoidingView
 } from 'react-native';

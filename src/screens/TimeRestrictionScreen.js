@@ -16,6 +16,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import {Picker} from '@react-native-picker/picker';
 import { FlatList } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const dimensions = Dimensions.get('window');
 const { width, height } = dimensions;
@@ -129,12 +131,13 @@ const TimeRestriction = ({ }) => {
         {day:'S'}
     ];
 
-    const onClickConfirm = () => {
+    const onClickConfirm = async () => {
+        var id = await AsyncStorage.getItem('@id');
         var exists = completed.includes(false);
         if(exists){
-            Object.keys(restrictions).forEach(elem =>{
+            Object.keys(restrictions).forEach(async (elem) =>{
                 const day = DATA[elem]["day"];
-                updateRestriction(userId, day, restrictions[elem])
+                await updateRestriction(id, day, restrictions[elem])
             })
             console.log("We need to do an alert here warning that")
         }else{
@@ -241,21 +244,6 @@ const TimeRestriction = ({ }) => {
                         <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictions[currDay].Dinner[1])}</Text>
                     </View>
                 </View>
-                {/* <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginBottom: 15}}>
-                    <Text style={{marginLeft: width *0.15, marginRight: width * 0.05}}>Breaks Between Tasks:</Text>
-                    <Picker
-                    selectedValue={breakTime}
-                    style={{flex:1.2, }}
-                    dropdownIconColor='#000000'
-                    onValueChange={(itemValue, itemIndex) =>
-                        setBreakTime(parseInt(itemValue))
-                    }>
-                    <Picker.Item label="5 Minutes" value='5' />
-                    <Picker.Item label="10 Minutes" value='10' />
-                    <Picker.Item label="15 Minutes" value="15" />
-                    <Picker.Item label="20 Minutes" value="20" />
-                </Picker>
-                </View> */}
             </View>
             <TouchableHighlight style={styles.loginButtonWrapper}>
                 <Button title='ADD' style={styles.button} color="#204969" onPress={onClickAdd}/>
