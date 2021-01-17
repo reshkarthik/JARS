@@ -12,6 +12,7 @@ const BottomMenu = ({ navigation }) => {
     const { routeName } = navigation.state;
     return (
         <View style={styles.container}>
+            {/*
             <TouchableOpacity
                 style={styles.menuItem}
                 onPress={() => {
@@ -25,25 +26,29 @@ const BottomMenu = ({ navigation }) => {
                     Today
                 </Text>
             </TouchableOpacity>
+                */}
 
             <TouchableOpacity
                 style={styles.menuItem}
                 onPress={() => {
                     navigation.replace('Home');
                 }}>
-                <MaterialCommunityIcons name="calendar-month-outline" size={33} color={routeName === 'Home' ? 'white' : '#204969'} />
+                <MaterialCommunityIcons name="calendar-month-outline" size={33} color={routeName === 'Home' ? 'white' : '#204969'} style={{ marginBottom: 5 }} />
                 <Text style={routeName === 'Home' ? styles.menuItemTextScreen : styles.menuItemText}>
                     Home
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.addButton}>
-                <AntDesign name="pluscircle" size={40} color='#204969' />
+                style={styles.menuItem}>
+                <AntDesign name="pluscircleo" size={32} color='#204969' style={{ marginBottom: 5 }} />
+                <Text style={styles.menuItemText}>
+                    Add
+                </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.menuItem} onPress={() => navigation.replace('Todo')}>
-                <FontAwesome5 name="tasks" size={30} color={routeName === 'Todo' ? 'white' : '#204969'} />
+                <FontAwesome5 name="tasks" size={30} color={routeName === 'Todo' ? 'white' : '#204969'} style={{ marginBottom: 5 }} />
                 <Text style={routeName === 'Todo' ? styles.menuItemTextScreen : styles.menuItemText}>
                     To-Do
                 </Text>
@@ -51,7 +56,7 @@ const BottomMenu = ({ navigation }) => {
 
             <TouchableOpacity
                 style={styles.menuItem}>
-                <Feather name="settings" size={30} color="#204969" />
+                <Feather name="settings" size={30} color="#204969" style={{ marginBottom: 5 }} />
                 <Text style={styles.menuItemText}>
                     Settings
                 </Text>
@@ -65,7 +70,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: height * 0.1,
         backgroundColor: '#B4BCC3',
-        //paddingHorizontal: '10%',
+        paddingHorizontal: '10%',
+    },
+    middleMenuItem: {
+        width: width * 0.2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 5
     },
     menuItem: {
         width: width * 0.2,

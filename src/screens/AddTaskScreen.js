@@ -112,8 +112,8 @@ const AddTask = ({ navigation }) => {
         height: height * 0.35,
         width: width* 0.9,
         borderRadius: 5,
-
         backgroundColor: '#FFFFFF', }}>
+
             {/* name */}
             <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
                 <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
@@ -144,6 +144,7 @@ const AddTask = ({ navigation }) => {
                 returnKeyType="next"
                 />
             </View>
+
             {/* start time */}            
             <View style ={{flexDirection: 'row'  }}> 
                 <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Start Time: </Text>

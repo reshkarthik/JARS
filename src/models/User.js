@@ -1,6 +1,8 @@
 const db = require('../config.js');
 const {createRestrictions, updateRestriction, viewRestrictions} = require('./Restriction');
-const jwt = require('jsonwebtoken');
+const {createEvent, updateEvent, viewEvent, deleteEvent} = require('./Event');
+const {createTask, updateTask} = require('./Task');
+const {createSTask} = require('./ScheduledTask');
 var userRef = db.ref().child("users");
 
 
@@ -8,9 +10,9 @@ function createUser(email, password) {
     const userId = userRef.push().key;
     db.ref('users/' + userId).set({
         email: email,
-        password: jwt.sign(password, 'calenJARS'),
-        tasks: [],
-        events: [],
+        password: password + 'calenJARS',
+        tasks: {},
+        events: {},
         restrictions: userId
       }, function(error) {
         if (error) {
@@ -21,16 +23,9 @@ function createUser(email, password) {
             return;
         }
       });
-      return;
+      return userId;
   }
 
-updateRestriction("-MRBXtcZ1aJ4QKfPlo-r", "Monday", {
-    Before: new Date().toISOString(),
-    After: new Date().toISOString(),
-    Lunch: [new Date().toISOString(),new Date().toISOString()], 
-    Dinner: [new Date().toISOString(), new Date().toISOString()],
-    Break: 100
-})
 function viewUser(userId){
     return userRef.child(userId).on("value", function(snapshot) {
         console.log(snapshot.val());
@@ -39,7 +34,15 @@ function viewUser(userId){
       });
 }
 
+function updateUser(userId, newUser){
+    var updates = {};
+    updates['/'+userId] = newUser;
+    return userRef.update(updates)
+}
+
 function deleteUser(userId){
     return userRef.child(userId).remove().then(
         console.log("Removed "+userId))
 }
+
+module.exports = {createUser, viewUser, updateUser, deleteUser};
