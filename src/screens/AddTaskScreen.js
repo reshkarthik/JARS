@@ -29,7 +29,6 @@ const AddTask = ({ navigation }) => {
     const [state, setState] = useState('');
     return (
         <SafeAreaView style={styles.container}>
-
             <Image source={require('../../images/JARS_logo.png')}/>
             
             <View style={styles.add}>
@@ -53,13 +52,12 @@ const AddTask = ({ navigation }) => {
 
             {/* COMPONENT for rectangle event*/}
             <EventComponent/>
-
+        
             {/* Add Button; add an onpress action */}
             <TouchableHighlight style={styles.loginButtonWrapper}>
                 <Button title=" ADD " color="#204969" />
             </TouchableHighlight>
-
-
+          
             <KeyboardAvoidingView style={styles.bottomMenu}>
                 <BottomMenu />
             </KeyboardAvoidingView>
