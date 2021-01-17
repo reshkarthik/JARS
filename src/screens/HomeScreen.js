@@ -20,14 +20,18 @@ const Home =  ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [id,setId] = useState('');
 
-    useEffect(async ()=>{
+    useEffect(() => {
         const loadStuff = async () => {
             const id = await AsyncStorage.getItem('@id');
-            setId(id);
+            if (id){
+                console.log(id);
+                const events = await getEvents(id)
+                console.log(events);
+                return events;
+            }
         }
         loadStuff();
-        console.log(id);
-        console.log(await getEvents(id));
+        
     },[])
 
 

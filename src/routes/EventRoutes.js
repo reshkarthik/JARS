@@ -12,11 +12,12 @@ async function getUserEvents(userId){
       if (child.key == "events"){
         const eventObjs = child.val();
         Object.keys(eventObjs).forEach(id => {
+          console.log("inside user events "+eventObjs[id]);
             allEvents.push(eventObjs[id]);
         });
     }});
   });
-  return await allEvents;
+  return allEvents;
 }
 
 async function getUserTasks(userId){
@@ -42,6 +43,7 @@ async function getUserTasks(userId){
 
 async function getEvents(userId){
     var userEvents = await getUserEvents(userId);
+    console.log("inside get events "+userEvents)
     const allEvents = [];
     let i;
     for (i = 0; i < userEvents.length; i++){
