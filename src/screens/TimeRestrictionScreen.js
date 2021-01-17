@@ -21,7 +21,6 @@ const { width, height } = dimensions;
 
 
 const TimeRestriction = ({ }) => {
-    const[restrictions, setRestrictions] = useState();
     const[timeBefore,setTimeBefore] = useState(new Date());
     const[showBefore, setShowBefore] = useState(false);
     const[edittedBefore, setEdittedBefore] = useState(false);
@@ -53,7 +52,7 @@ const TimeRestriction = ({ }) => {
 
     const [completed,setCompleted] = useState([false,false,false,false,false,false,false]);
 
-    const [restrictons,setRestriction] = useState({
+    const [restrictions,setRestriction] = useState({
         0:{Before: new Date(2000,1,1,8,30,0,0),After: new Date(2000,1,1,20,30,0,0),Lunch:[new Date(2000,1,1,13,0,0,0),new Date(2000,1,1,14,0,0,0)],Dinner:[new Date(2000,1,1,19,0,0,0),new Date(2000,1,1,20,0,0,0)], Break:5},
         1:{Before: new Date(2000,1,1,8,30,0,0),After: new Date(2000,1,1,20,30,0,0),Lunch:[new Date(2000,1,1,13,0,0,0),new Date(2000,1,1,14,0,0,0)],Dinner:[new Date(2000,1,1,19,0,0,0),new Date(2000,1,1,20,0,0,0)], Break:5},
         2:{Before: new Date(2000,1,1,8,30,0,0),After: new Date(2000,1,1,20,30,0,0),Lunch:[new Date(2000,1,1,13,0,0,0),new Date(2000,1,1,14,0,0,0)],Dinner:[new Date(2000,1,1,19,0,0,0),new Date(2000,1,1,20,0,0,0)], Break:5},
@@ -140,21 +139,21 @@ const TimeRestriction = ({ }) => {
     }
 
     const clearTime = (index) => {
-        console.log(restrictons)
+        console.log(restrictions)
         setCurrDay(index);
-        setTimeBefore(restrictons[index].Before);
+        setTimeBefore(restrictions[index].Before);
         setShowBefore(false);
         setEdittedBefore(false);
         setTimeAfter(restrictions[index].After);
         setShowAfter(false);
         setEdittedAfter(false);
-        setLunchStart(restrictons[index].Lunch[0]);
+        setLunchStart(restrictions[index].Lunch[0]);
         setLunchStartShow(false);
         setEdittedLunchStart(false);
         setLunchEnd(restrictions[index].Lunch[1]);
         setLunchEndShow(false);
         setEdittedLunchEnd(false);
-        setDinnerStart(restictions[index].Dinner[0]);
+        setDinnerStart(restrictions[index].Dinner[0]);
         setDinnerStartShow(false);
         setEdittedDinnerStart(false);
         setDinnerEnd(restrictions[index].Dinner[1]);
@@ -163,15 +162,15 @@ const TimeRestriction = ({ }) => {
         setBreakTime(restrictions[index].Break);
     }
     
-
     const onClickAdd = () => {
         var cpyArr = [...completed];
         cpyArr[currDay] = true;
         setCompleted(cpyArr);
-        var cpyRes = JSON.parse(JSON.stringify(restrictons));
+        var cpyRes = JSON.parse(JSON.stringify(restrictions));
         cpyRes[currDay] = {Before:timeBefore,After:timeAfter,Lunch:[lunchStart,lunchEnd],Dinner:[dinnerStart,dinnerEnd],Break:breakTime};
         setRestriction(cpyRes);
     }
+    
     const renderItem = ({item,index}) => {
         const color = completed[index] ? 'green': 'white';
         return( 
@@ -203,26 +202,26 @@ const TimeRestriction = ({ }) => {
                     <Text style={{marginLeft:width * 0.15}}>Dont Schedule Before:</Text>
                     {showBefore && <DateTimePicker value={timeBefore} mode={'time'} is24Hour={false} display="default" onChange={onChangeBefore}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setShowBefore(true)}>{edittedBefore?formatTime(timeBefore): formatTime(restrictons[currDay].Before)}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setShowBefore(true)}>{edittedBefore?formatTime(timeBefore): formatTime(restrictions[currDay].Before)}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
                     <Text style={{marginLeft:width *0.15}}>Dont Schedule After:</Text>
                     {showAfter && <DateTimePicker value={timeAfter} mode={'time'} is24Hour={false} display="default" onChange={onChangeAfter}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setShowAfter(true)}>{edittedAfter?formatTime(timeAfter):formatTime(restrictons[currDay].After)}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setShowAfter(true)}>{edittedAfter?formatTime(timeAfter):formatTime(restrictions[currDay].After)}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
                     <Text style={{marginLeft:width *0.15}}>Lunch:</Text>
                     {lunchStartShow && <DateTimePicker value={lunchStart} mode={'time'} is24Hour={false} display="default" onChange={onChangeLunchStart}/>}
                     <View style={{marginHorizontal:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setLunchStartShow(true)}>{edittedLunchStart?formatTime(lunchStart):formatTime(restrictons[currDay].Lunch[0])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setLunchStartShow(true)}>{edittedLunchStart?formatTime(lunchStart):formatTime(restrictions[currDay].Lunch[0])}</Text>
                     </View>
                     <Text>to</Text>
                     {lunchEndShow && <DateTimePicker value={lunchEnd} mode={'time'} is24Hour={false} display="default" onChange={onChangeLunchEnd}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setLunchEndShow(true)}>{edittedLunchEnd?formatTime(lunchEnd):formatTime(restrictons[currDay].Lunch[1])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setLunchEndShow(true)}>{edittedLunchEnd?formatTime(lunchEnd):formatTime(restrictions[currDay].Lunch[1])}</Text>
                     </View>
                 </View>
 
@@ -230,12 +229,12 @@ const TimeRestriction = ({ }) => {
                     <Text style={{marginLeft:width *0.15}}>Dinner:</Text>
                     {dinnerStartShow && <DateTimePicker value={dinnerStart} mode={'time'} is24Hour={false} display="default" onChange={onChangeDinnerStart}/>}
                     <View style={{marginHorizontal:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerStartShow(true)}>{edittedDinnerStart?formatTime(dinnerStart):formatTime(restrictons[currDay].Dinner[0])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerStartShow(true)}>{edittedDinnerStart?formatTime(dinnerStart):formatTime(restrictions[currDay].Dinner[0])}</Text>
                     </View>
                     <Text>to</Text>
                     {dinnerEndShow && <DateTimePicker value={dinnerEnd} mode={'time'} is24Hour={false} display="default" onChange={onChangeDinnerEnd}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictons[currDay].Dinner[1])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictions[currDay].Dinner[1])}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginBottom: 15}}>
