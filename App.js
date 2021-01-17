@@ -18,7 +18,7 @@ const navigator = createStackNavigator(
     ForgotPw
   },
   {
-    initialRouteName: 'ForgotPw',
+    initialRouteName: 'TimeRestriction',
     defaultNavigationOptions: {
       headerShown: false,
     },
