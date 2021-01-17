@@ -21,6 +21,7 @@ const { width, height } = dimensions;
 
 
 const TimeRestriction = ({ }) => {
+    const[restrictions, setRestrictions] = useState();
     const[timeBefore,setTimeBefore] = useState(new Date());
     const[showBefore, setShowBefore] = useState(false);
     const[edittedBefore, setEdittedBefore] = useState(false);
@@ -174,38 +175,46 @@ const TimeRestriction = ({ }) => {
     const renderItem = ({item,index}) => {
         const color = completed[index] ? 'green': 'white';
         return( 
-        <TouchableHighlight onPress={()=>clearTime(index)} style={{flex:1,borderColor:'black',borderWidth:1,width:(width-20)*0.14, backgroundColor:(currDay === index ? 'blue': color)}}>
-            <Text style={{textAlign:'center'}}>{item.day}</Text>
+        <TouchableHighlight onPress={()=>clearTime(index)} style={{
+            borderRadius: 15, 
+            justifyContent:'center', 
+            height: height*0.04, 
+            flex:1,
+            borderColor:'#B4BCC3',borderWidth:2,
+            width:(width-20)*0.14, 
+            backgroundColor:(currDay === index ? '#204969': color)}}>
+            <Text style={{textAlign:'center', 
+            }}>{item.day}</Text>
         </TouchableHighlight>
         )
     }
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{flexDirection:'row',alignItems:'center',alignContent:'center'}}>
+            <View style={{flexDirection:'row', alignItems:'center',alignContent:'center'}}>
                 <Text style={{flex:1,fontSize:35, paddingLeft:10, textAlign:'center'}}>Time Restriction</Text>
                 {/* <Feather name="plus-circle" size={24} color="black" /> */}
             </View>
-            <View style={{flexDirection:'column'}}>
+            <View style={{flexDirection:'column', }}>
                 <View style={{height: 3, backgroundColor: 'black', marginHorizontal: '12%',}}></View>
-                <View style={{flex:0, marginVertical:10,flexDirection:'row'}}>
+                <View style={{flex:0, marginVertical:15,flexDirection:'row', paddingTop: 15}}>
                     <FlatList  horizontal={true} data={DATA} renderItem={renderItem}/>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Dont Schedule Before:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingTop: 20,marginBottom:20}}>
+                    <Text style={{marginLeft:width * 0.15}}>Dont Schedule Before:</Text>
                     {showBefore && <DateTimePicker value={timeBefore} mode={'time'} is24Hour={false} display="default" onChange={onChangeBefore}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
                         <Text style={{textAlign:'center'}} onPress={()=>setShowBefore(true)}>{edittedBefore?formatTime(timeBefore): formatTime(restrictons[currDay].Before)}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Dont Schedule After:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
+                    <Text style={{marginLeft:width *0.15}}>Dont Schedule After:</Text>
                     {showAfter && <DateTimePicker value={timeAfter} mode={'time'} is24Hour={false} display="default" onChange={onChangeAfter}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
                         <Text style={{textAlign:'center'}} onPress={()=>setShowAfter(true)}>{edittedAfter?formatTime(timeAfter):formatTime(restrictons[currDay].After)}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Lunch:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
+                    <Text style={{marginLeft:width *0.15}}>Lunch:</Text>
                     {lunchStartShow && <DateTimePicker value={lunchStart} mode={'time'} is24Hour={false} display="default" onChange={onChangeLunchStart}/>}
                     <View style={{marginHorizontal:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
                         <Text style={{textAlign:'center'}} onPress={()=>setLunchStartShow(true)}>{edittedLunchStart?formatTime(lunchStart):formatTime(restrictons[currDay].Lunch[0])}</Text>
@@ -217,8 +226,8 @@ const TimeRestriction = ({ }) => {
                     </View>
                 </View>
 
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Dinner:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
+                    <Text style={{marginLeft:width *0.15}}>Dinner:</Text>
                     {dinnerStartShow && <DateTimePicker value={dinnerStart} mode={'time'} is24Hour={false} display="default" onChange={onChangeDinnerStart}/>}
                     <View style={{marginHorizontal:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
                         <Text style={{textAlign:'center'}} onPress={()=>setDinnerStartShow(true)}>{edittedDinnerStart?formatTime(dinnerStart):formatTime(restrictons[currDay].Dinner[0])}</Text>
@@ -229,11 +238,11 @@ const TimeRestriction = ({ }) => {
                         <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictons[currDay].Dinner[1])}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{flex:1.2,marginLeft:10}}>Breaks Between Tasks:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginBottom: 15}}>
+                    <Text style={{marginLeft: width *0.15, marginRight: width * 0.05}}>Breaks Between Tasks:</Text>
                     <Picker
                     selectedValue={breakTime}
-                    style={{flex:1.2}}
+                    style={{flex:1.2, }}
                     dropdownIconColor='#000000'
                     onValueChange={(itemValue, itemIndex) =>
                         setBreakTime(parseInt(itemValue))
@@ -243,14 +252,14 @@ const TimeRestriction = ({ }) => {
                     <Picker.Item label="15 Minutes" value="15" />
                     <Picker.Item label="20 Minutes" value="20" />
                 </Picker>
-                <View style={{flex:1}}></View>
                 </View>
             </View>
             <TouchableHighlight style={styles.loginButtonWrapper}>
-                <Button title='ADD' color="#204969" onPress={onClickAdd}/>
+                <Button title='ADD' style={styles.button} color="#204969" onPress={onClickAdd}/>
             </TouchableHighlight>
+
             <TouchableHighlight style={styles.loginButtonWrapper}>
-                <Button title='CONFIRM' color="#204969" onPress={onClickConfirm}/>
+                <Button title='CONFIRM' style={styles.button} color="#204969" onPress={onClickConfirm}/>
             </TouchableHighlight>
         </SafeAreaView>
     );
@@ -260,7 +269,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#E6E7E9',
-    }
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    loginButtonWrapper: {
+        paddingTop: height * 0.01,
+        width: width * 0.5,
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    button: {
+        borderRadius: 20,
+    },
 });
 
 export default TimeRestriction;

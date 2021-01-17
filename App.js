@@ -23,11 +23,7 @@ const navigator = createStackNavigator(
     Todo,
   },
   {
-<<<<<<< HEAD
     initialRouteName: 'TimeRestriction',
-=======
-    initialRouteName: 'Home',
->>>>>>> 73438f9788f1953904815a939f6c445b55e4726b
     defaultNavigationOptions: {
       headerShown: false,
     },
