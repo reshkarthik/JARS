@@ -23,7 +23,7 @@ const dimensions = Dimensions.get('window');
 const { width, height } = dimensions;
 
 
-const TimeRestriction = ({ }) => {
+const TimeRestriction = ({ navigation }) => {
     const[timeBefore,setTimeBefore] = useState(new Date(2000,1,1,8,30,0,0));
     const[showBefore, setShowBefore] = useState(false);
     const[edittedBefore, setEdittedBefore] = useState(false);
@@ -134,15 +134,13 @@ const TimeRestriction = ({ }) => {
     const onClickConfirm = async () => {
         var id = await AsyncStorage.getItem('@id');
         var exists = completed.includes(false);
-        if(exists){
-            Object.keys(restrictions).forEach(async (elem) =>{
-                const day = DATA[elem]["day"];
-                await updateRestriction(id, day, restrictions[elem])
-            })
-            console.log("We need to do an alert here warning that")
-        }else{
-            console.log('we will navigate to the ome page');
-        }
+        
+        Object.keys(restrictions).forEach(async (elem) =>{
+               const day = DATA[elem]["day"];
+               await updateRestriction(id, day, restrictions[elem])
+         })
+         navigation.replace('Home');
+        
     }
 
     const clearTime = (index) => {
