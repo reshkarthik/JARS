@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+const {createUser, viewUser, updateUser, deleteUser} = require('../models/User');
+
 import {
   StyleSheet,
   View,
@@ -53,7 +55,10 @@ const SignUp = ({ navigation }) => {
       />
       {/* create account button */}
       <TouchableHighlight style={styles.loginButtonWrapper}>
-        <Button title="CREATE ACCOUNT" color={buttonColor} />
+        <Button title="CREATE ACCOUNT" color={buttonColor} style={styles.menuItem}
+                onPress={() => {
+                  createUser(email, password);
+                }}/>
       </TouchableHighlight>
 
       {/* no account text */}

@@ -30,6 +30,7 @@ async function login(email, password){
               });
           });
           if (count == 2){
+              console.log(foundUser)
               return foundUser;
         }
           else{
