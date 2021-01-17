@@ -11,8 +11,8 @@ import ForgotPw from './src/screens/ForgotPasswordScreen.js';
 import Home from './src/screens/HomeScreen.js';
 import Todo from './src/screens/TodoScreen.js';
 
-
 const navigator = createStackNavigator(
+
   {
     LogIn,
     TimeRestriction,
@@ -23,7 +23,7 @@ const navigator = createStackNavigator(
     Todo,
   },
   {
-    initialRouteName: 'LogIn',
+    initialRouteName: 'AddTask',
     defaultNavigationOptions: {
       headerShown: false,
     },

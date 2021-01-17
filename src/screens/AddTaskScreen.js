@@ -9,7 +9,6 @@ import {
     ScrollView,
     KeyboardAvoidingView,
     TouchableHighlight,
-    KeyboardAvoidingView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,6 +18,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import BottomMenu from '../components/BottomBarComponent.js';
 import TaskComponent from '../components/TaskComponent.js'
 import EventComponent from '../components/EventComponent.js';
+import SettingsModal from '../components/SettingsModalComponent.js';
 
 const dimensions = Dimensions.get('window');
 const { width } = dimensions;
@@ -26,7 +26,7 @@ const { height } = dimensions;
 
 const AddTask = ({ navigation }) => {
     const [state, setState] = useState('task');
-
+    const [modalVisible, setModalVisible] =useState(false);
     const [taskName,setTaskName] = useState("");
     const [dueDate,setDueDate] = useState(new Date());
     const [numHours,setNumHours] = useState(0);
@@ -77,19 +77,16 @@ const AddTask = ({ navigation }) => {
                 console.log(eventStart);
                 console.log(eventEnd);
                 console.log(repeat);
-                console.log(repeatUntil);
+                console.log(repeatUntil);            
                 
+                    
             }}/>
             </TouchableHighlight>
-          
-            <KeyboardAvoidingView style={styles.bottomMenu}>
-                <BottomMenu />
-            </KeyboardAvoidingView>
-
-            {/* Add Button; add an onpress action */}
-            <TouchableHighlight style={styles.loginButtonWrapper}>
-                <Button title=" ADD " color="#204969" />
-            </TouchableHighlight>
+            
+            {modalVisible === true ? <SettingsModal isVisible={setModalVisible} /> : null}
+                <KeyboardAvoidingView style={styles.bottomMenu}>
+                    <BottomMenu onSettingsPress={setModalVisible} />
+                </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
