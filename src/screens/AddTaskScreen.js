@@ -6,14 +6,12 @@ import {
     Text,
     Dimensions,
     Button,
-    ScrollView,
     TouchableHighlight,
+    KeyboardAvoidingView,
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Picker } from '@react-native-picker/picker';
-import { Feather } from '@expo/vector-icons';
-import { TextInput } from 'react-native-gesture-handler';
+
 import BottomMenu from '../components/BottomBarComponent.js';
 import TaskComponent from '../components/TaskComponent.js'
 import EventComponent from '../components/EventComponent.js';

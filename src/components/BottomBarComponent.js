@@ -40,6 +40,7 @@ const BottomMenu = ({ navigation, onSettingsPress }) => {
             </TouchableOpacity>
 
             <TouchableOpacity
+                onPress={() => navigation.replace('AddTask')}
                 style={styles.menuItem}>
                 <AntDesign name="pluscircleo" size={32} color='#204969' style={{ marginBottom: 5 }} />
                 <Text style={styles.menuItemText}>
