@@ -60,6 +60,8 @@ const EventComponent = ({setEventName, setEventDate,
         setDateShow(false);
         setDate(selectedValue);
         setEventDate(selectedValue);
+        
+        
     } 
     const onChangeRepeatDate = (event, selectedValue) => {
         setRepeatDateShow(false);

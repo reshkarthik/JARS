@@ -63,18 +63,20 @@ function createRestrictions(userId) {
       return;
   }
 
-function updateRestriction(userId, day, newRestrictions){
+function updateRestriction(userId, newRestrictions){
     var updates = {};
-    updates['/'+userId+"/"+day] = newRestrictions;
+    updates['/'+userId] = newRestrictions;
     return restrictionRef.update(updates)
 }
 
 function viewRestrictions(restrictionId){
-    return restrictionRef.child(restrictionId).on("value", function(snapshot) {
-        console.log(snapshot.val());
+  let restriction;
+    restrictionRef.child(restrictionId).on("value", function(snapshot) {
+        restriction = snapshot.val();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
+  return restriction;
 }
 
 module.exports = {createRestrictions, updateRestriction, viewRestrictions};

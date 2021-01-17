@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -9,10 +9,11 @@ import {
     ScrollView,
     KeyboardAvoidingView,
     TouchableHighlight,
+    KeyboardAvoidingView
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import { Feather } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import BottomMenu from '../components/BottomBarComponent.js';
@@ -85,6 +86,10 @@ const AddTask = ({ navigation }) => {
                 <BottomMenu />
             </KeyboardAvoidingView>
 
+            {/* Add Button; add an onpress action */}
+            <TouchableHighlight style={styles.loginButtonWrapper}>
+                <Button title=" ADD " color="#204969" />
+            </TouchableHighlight>
         </SafeAreaView>
     );
 }
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     dropDownColor: {
         backgroundColor: '#B4BCC3',
     },
-    title : {
+    title: {
         paddingVertical: height * 0.05,
         fontWeight: 'bold',
         fontSize: 36,
@@ -121,7 +126,7 @@ const styles = StyleSheet.create({
         paddingRight: 2,
     
     },
-    add : {
+    add: {
         flexDirection: 'row',
         paddingBottom: 5,
         justifyContent: 'center',
@@ -130,8 +135,8 @@ const styles = StyleSheet.create({
     iconStyle: {
         fontSize: 24,
         paddingLeft: 14,
-        marginTop: 12, 
-      },
+        marginTop: 12,
+    },
     loginButtonWrapper: {
         paddingTop: height * 0.01,
         width: width * 0.25,

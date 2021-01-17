@@ -7,6 +7,7 @@ function createTask(userId, title, deadline, timeLeft) {
     const taskId = taskRef.push().key;
 
     db.ref('tasks/' + taskId).set({
+        id: taskId,
         title: title,
         deadline: deadline,
         timeLeft: timeLeft,
@@ -17,7 +18,7 @@ function createTask(userId, title, deadline, timeLeft) {
         }
       });
     userRef.child(userId).child("tasks").push(taskId);
-    return;
+    return taskId;
   }
 
 function updateTask(taskId, newTask){
@@ -27,11 +28,13 @@ function updateTask(taskId, newTask){
 }
 
 function viewTask(taskId){
-    return taskRef.child(taskId).on("value", function(snapshot) {
-        console.log(snapshot.val());
+  let task;
+  taskRef.child(taskId).on("value", function(snapshot) {
+        task = snapshot.val();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
+  return task;
 }
 
 function deleteTask(userId, taskId){
