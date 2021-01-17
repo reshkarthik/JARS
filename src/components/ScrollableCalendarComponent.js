@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Alert, Modal, Text, TouchableHighlight, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { CalendarList, Agenda } from 'react-native-calendars';
 import { Card, Avatar } from 'react-native-paper';
 
@@ -65,6 +65,4 @@ const ScrollableCalendar = ({ }) => {
     );
 };
 
-const styles = StyleSheet.create({
-});
 export default ScrollableCalendar;

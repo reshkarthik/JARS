@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+const {login} = require('../routes/UserRoutes');
+
 import {
     StyleSheet,
     View,
@@ -46,7 +48,10 @@ const LogIn = ({ navigation }) => {
                         value={password}
                     />
                     <TouchableHighlight style={styles.loginButtonWrapper}>
-                        <Button title="LOGIN" color={buttonColor} />
+                        <Button title="LOGIN" color={buttonColor} style={styles.menuItem}
+                onPress={() => {
+                  login(email, password);
+                }}/>
                     </TouchableHighlight>
                 </View>
                 <View style={styles.accountWrapper}>

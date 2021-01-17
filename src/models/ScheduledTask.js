@@ -25,7 +25,7 @@ function createSTask(userId, taskId, deadline, title, startTime, endTime) {
     
     taskRef.child(taskId).child("scheduled").push(sTaskId);
     createEvent(userId, sTaskId, title, startTime, endTime, true, "never");
-    return;
+    return sTaskId;
   }
 
 function updateSTask(sTaskId, newTask){

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -8,12 +8,13 @@ import {
     Button,
     ScrollView,
     TouchableHighlight,
+    KeyboardAvoidingView
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import { Feather } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
-
+import BottomMenu from '../components/BottomBarComponent.js';
 const dimensions = Dimensions.get('window');
 const { width } = dimensions;
 const { height } = dimensions;
@@ -24,199 +25,209 @@ const AddTask = ({ navigation }) => {
     const [state, setState] = useState('');
     return (
         <SafeAreaView style={styles.container}>
-        <Image source={require('../../images/JARS_logo.png')}/>
-        
-        <View style={styles.add}>
-            <Text style={styles.text}> Add </Text> 
+            <Image source={require('../../images/JARS_logo.png')} />
+
+            <View style={styles.add}>
+                <Text style={styles.text}> Add </Text>
                 <Picker
                     selectedValue={state.item}
-                    style={{height: 50, width: 125, }}
+                    style={{ height: 50, width: 125, }}
                     dropdownIconColor='#000000'
                     onValueChange={(itemValue, itemIndex) =>
-                        setState({item: itemValue})
+                        setState({ item: itemValue })
                     }>
                     <Picker.Item label="task" value="task" />
                     <Picker.Item label="event" value="event" />
                 </Picker>
                 <Feather style={styles.iconStyle} name="plus-circle" />
-        </View>
-        <View style={styles.hairline} />
+            </View>
+            <View style={styles.hairline} />
 
 
 
 
 
 
-        {/* COMPONENT for rectangle task*/}
-        <View style={{  
-            marginTop: 14,
-            height: height * 0.18,
-            width: width* 0.9,
-            borderRadius: 5,
+            {/* COMPONENT for rectangle task*/}
+            <View style={{
+                marginTop: 14,
+                height: height * 0.18,
+                width: width * 0.9,
+                borderRadius: 5,
 
-            backgroundColor: '#FFFFFF', }}>
-            
-             {/* Name */}
-            <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.57,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
+                backgroundColor: '#FFFFFF',
+            }}>
 
-             {/* Due date */}
-             <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Due Date: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.52,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
+                {/* Name */}
+                <View style={{ flexDirection: 'row', paddingTop: 14, }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.57,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
 
-              {/* # of hours Need */}
-              <View style ={{flexDirection: 'row',  }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> # of Hours Needed: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.35,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                keyboardType="number-pad"
-                />
-            </View> 
-        </View>
+                {/* Due date */}
+                <View style={{ flexDirection: 'row', }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Due Date: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.52,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
 
-        {/* COMPONENT for rectangle event*/}
-        <View style={{  
-        marginTop: 14,
-        height: height * 0.35,
-        width: width* 0.9,
-        borderRadius: 5,
-        backgroundColor: '#FFFFFF', }}>
-
-            {/* name */}
-            <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.57,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-
-            {/* date */}
-            <View style ={{flexDirection: 'row' }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Date: </Text>
-                <TextInput 
-                style={{
-                    width: width * 0.57,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
+                {/* # of hours Need */}
+                <View style={{ flexDirection: 'row', }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> # of Hours Needed: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.35,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                        keyboardType="number-pad"
+                    />
+                </View>
             </View>
 
-            {/* start time */}            
-            <View style ={{flexDirection: 'row'  }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Start Time: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.2,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
+            {/* COMPONENT for rectangle event*/}
+            <View style={{
+                marginTop: 14,
+                height: height * 0.35,
+                width: width * 0.9,
+                borderRadius: 5,
+                backgroundColor: '#FFFFFF',
+            }}>
 
-            {/* Stop Time */}
-            <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Stop Time: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.2,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
+                {/* name */}
+                <View style={{ flexDirection: 'row', paddingTop: 14, }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.57,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
 
-            <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.2,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
+                {/* date */}
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Date: </Text>
+                    <TextInput
+                        style={{
+                            width: width * 0.57,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
+
+                {/* start time */}
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Start Time: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.2,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
+
+                {/* Stop Time */}
+                <View style={{ flexDirection: 'row', }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Stop Time: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.2,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
+
+                <View style={{ flexDirection: 'row', }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.2,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
+
+                <View style={{ flexDirection: 'row', }}>
+                    <Text style={{ marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat Until: </Text>
+                    <TextInput
+                        style={{
+                            paddingLeft: width * 0.02,
+                            width: width * 0.4,
+                            backgroundColor: '#B4BCC3',
+                            borderRadius: 3,
+                            flexDirection: 'row',
+                            fontSize: 14,
+                            marginBottom: 15
+                        }}
+                        returnKeyType="next"
+                    />
+                </View>
             </View>
 
-            <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat Until: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.4,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-        </View>
-
-      
 
 
 
-           {/* Add Button; add an onpress action */}
-        <TouchableHighlight style={styles.loginButtonWrapper}>
-            <Button title=" ADD " color="#204969" />
-        </TouchableHighlight>
 
+            {/* Add Button; add an onpress action */}
+            <TouchableHighlight style={styles.loginButtonWrapper}>
+                <Button title=" ADD " color="#204969" />
+            </TouchableHighlight>
         </SafeAreaView>
     );
 }
@@ -231,31 +242,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#A2A2A2',
         height: 2,
         width: width
-      },
+    },
     dropDownColor: {
         backgroundColor: '#B4BCC3',
     },
-    title : {
+    title: {
         paddingVertical: height * 0.05,
         fontWeight: 'bold',
         fontSize: 36,
     },
-    text : {
+    text: {
         marginTop: 15,
         fontSize: 16,
     },
-    add : {
+    add: {
         flexDirection: 'row',
         paddingBottom: 5,
     },
     iconStyle: {
         fontSize: 24,
         paddingLeft: 14,
-        marginTop: 12, 
-      },
+        marginTop: 12,
+    },
     loginButtonWrapper: {
         paddingTop: height * 0.01,
-      
+
         width: width * 0.25,
         justifyContent: 'center',
         marginBottom: 10,
