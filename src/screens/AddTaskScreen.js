@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Picker } from '@react-native-picker/picker';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomMenu from '../components/BottomBarComponent.js';
 import TaskComponent from '../components/TaskComponent.js'
 import EventComponent from '../components/EventComponent.js';
 import SettingsModal from '../components/SettingsModalComponent.js';
+const {createEvent, updateEvent, viewEvent, deleteEvent} = require('../models/Event');
+
 
 const dimensions = Dimensions.get('window');
 const { width } = dimensions;
@@ -64,7 +66,7 @@ const AddTask = ({ navigation }) => {
             }
             {/* Add Button; add an onpress action */}
             <TouchableHighlight  style={styles.loginButtonWrapper}>
-                <Button title=" ADD " color="#204969" onPress={()=>{
+                <Button title=" ADD " color="#204969" onPress={async ()=>{
                 console.log(taskName);
                 console.log(dueDate);
                 console.log(numHours);
@@ -74,8 +76,8 @@ const AddTask = ({ navigation }) => {
                 console.log(eventStart);
                 console.log(eventEnd);
                 console.log(repeat);
-                console.log(repeatUntil);            
-                
+                console.log(repeatUntil);
+                const id = await AsyncStorage.getItem('@id');
                     
             }}/>
             </TouchableHighlight>
