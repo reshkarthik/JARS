@@ -57,7 +57,7 @@ const AddTask = ({ navigation }) => {
             backgroundColor: '#FFFFFF', }}>
             
              {/* Name */}
-            <View style ={{flexDirection: 'row', paddingTop: 10, }}> 
+            <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
                 <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
                 <TextInput 
                 style={{
@@ -106,15 +106,115 @@ const AddTask = ({ navigation }) => {
             </View> 
         </View>
 
+        {/* COMPONENT for rectangle event*/}
+        <View style={{  
+        marginTop: 14,
+        height: height * 0.35,
+        width: width* 0.9,
+        borderRadius: 5,
 
-           {/* Add Button */}
+        backgroundColor: '#FFFFFF', }}>
+            {/* name */}
+            <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
+                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
+                <TextInput 
+                style={{
+                    paddingLeft: width * 0.02,
+                    width: width * 0.57,
+                    backgroundColor: '#B4BCC3',
+                    borderRadius: 3,
+                    flexDirection: 'row',
+                    fontSize: 14,
+                    marginBottom: 15 }}
+                returnKeyType="next"
+                />
+            </View> 
+
+            {/* date */}
+            <View style ={{flexDirection: 'row' }}> 
+                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Date: </Text>
+                <TextInput 
+                style={{
+                    width: width * 0.57,
+                    backgroundColor: '#B4BCC3',
+                    borderRadius: 3,
+                    flexDirection: 'row',
+                    fontSize: 14,
+                    marginBottom: 15 }}
+                returnKeyType="next"
+                />
+            </View>
+            {/* start time */}            
+            <View style ={{flexDirection: 'row'  }}> 
+                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Start Time: </Text>
+                <TextInput 
+                style={{
+                    paddingLeft: width * 0.02,
+                    width: width * 0.2,
+                    backgroundColor: '#B4BCC3',
+                    borderRadius: 3,
+                    flexDirection: 'row',
+                    fontSize: 14,
+                    marginBottom: 15 }}
+                returnKeyType="next"
+                />
+            </View> 
+
+            {/* Stop Time */}
+            <View style ={{flexDirection: 'row', }}> 
+                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Stop Time: </Text>
+                <TextInput 
+                style={{
+                    paddingLeft: width * 0.02,
+                    width: width * 0.2,
+                    backgroundColor: '#B4BCC3',
+                    borderRadius: 3,
+                    flexDirection: 'row',
+                    fontSize: 14,
+                    marginBottom: 15 }}
+                returnKeyType="next"
+                />
+            </View> 
+
+            <View style ={{flexDirection: 'row', }}> 
+                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat: </Text>
+                <TextInput 
+                style={{
+                    paddingLeft: width * 0.02,
+                    width: width * 0.2,
+                    backgroundColor: '#B4BCC3',
+                    borderRadius: 3,
+                    flexDirection: 'row',
+                    fontSize: 14,
+                    marginBottom: 15 }}
+                returnKeyType="next"
+                />
+            </View>
+
+            <View style ={{flexDirection: 'row', }}> 
+                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat Until: </Text>
+                <TextInput 
+                style={{
+                    paddingLeft: width * 0.02,
+                    width: width * 0.4,
+                    backgroundColor: '#B4BCC3',
+                    borderRadius: 3,
+                    flexDirection: 'row',
+                    fontSize: 14,
+                    marginBottom: 15 }}
+                returnKeyType="next"
+                />
+            </View> 
+        </View>
+
+      
+
+
+
+           {/* Add Button; add an onpress action */}
         <TouchableHighlight style={styles.loginButtonWrapper}>
             <Button title=" ADD " color="#204969" />
         </TouchableHighlight>
-
-
-
-      
 
         </SafeAreaView>
     );

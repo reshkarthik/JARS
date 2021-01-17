@@ -10,7 +10,7 @@ import AddTask from './src/screens/AddTaskScreen'
 import ForgotPw from './src/screens/ForgotPasswordScreen.js';
 import Home from './src/screens/HomeScreen.js';
 import Todo from './src/screens/TodoScreen.js';
-import Today from './src/screens/TodayScreen.js';
+
 
 const navigator = createStackNavigator(
   {
@@ -21,14 +21,9 @@ const navigator = createStackNavigator(
     ForgotPw,
     Home,
     Todo,
-    Today
   },
   {
-<<<<<<< HEAD
     initialRouteName: 'AddTask',
-=======
-    initialRouteName: 'Home',
->>>>>>> shreya_new
     defaultNavigationOptions: {
       headerShown: false,
     },
