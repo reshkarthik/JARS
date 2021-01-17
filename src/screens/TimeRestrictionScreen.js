@@ -1,4 +1,5 @@
 import React from 'react';
+const {updateRestriction} = require("../models/Restriction");
 import {
     StyleSheet,
     View,
@@ -131,6 +132,10 @@ const TimeRestriction = ({ }) => {
     const onClickConfirm = () => {
         var exists = completed.includes(false);
         if(exists){
+            Object.keys(restrictions).forEach(elem =>{
+                const day = DATA[elem]["day"];
+                updateRestriction(userId, day, restrictions[elem])
+            })
             console.log("We need to do an alert here warning that")
         }else{
             console.log('we will navigate to the ome page');
