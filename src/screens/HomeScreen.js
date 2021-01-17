@@ -10,7 +10,9 @@ import BottomMenu from '../components/BottomBarComponent.js';
 import SettingsModal from '../components/SettingsModalComponent.js';
 import ScrollableCalendar from '../components/ScrollableCalendarComponent.js';
 
-const Home = ({ navigation }) => {
+
+
+const Home =  ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <SafeAreaView style={styles.somecontainer}>

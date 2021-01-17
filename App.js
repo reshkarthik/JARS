@@ -24,7 +24,7 @@ const navigator = createStackNavigator(
   },
   {
    
-    initialRouteName: 'LogIn',
+    initialRouteName: 'SignUp',
     defaultNavigationOptions: {
       headerShown: false,
     },

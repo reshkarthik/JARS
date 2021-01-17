@@ -12,6 +12,8 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useSetId from '../hooks/useSetId';
+
 const dimensions = Dimensions.get('window');
 const { width } = dimensions;
 const { height } = dimensions;
@@ -22,6 +24,9 @@ const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [conPassword, setConPassword] = useState('');
+  const [storeId] = useSetId();
+  const [loading,setLoading] = useState(false);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,6 +42,7 @@ const SignUp = ({ navigation }) => {
         keyboardType="email-address" 
         placeholder=" enter email address"
         value={email}
+        onChangeText={text=>setEmail(text)}
       />
 
       {/* enter new password */}
@@ -45,6 +51,9 @@ const SignUp = ({ navigation }) => {
         returnKeyType="next"
         placeholder=" enter new password"
         value={password}
+        secureTextEntry
+        onChangeText={text=>setPassword(text)}
+
       />
       {/* confirm new password */}
       <TextInput
@@ -52,12 +61,17 @@ const SignUp = ({ navigation }) => {
         returnKeyType="next"
         placeholder=" confirm new password"
         value={conPassword}
+        secureTextEntry
+        onChangeText={text=>setConPassword(text)}
+
       />
       {/* create account button */}
       <TouchableHighlight style={styles.loginButtonWrapper}>
         <Button title="CREATE ACCOUNT" color={buttonColor} style={styles.menuItem}
-                onPress={() => {
-                  createUser(email, password);
+                onPress={async () => {
+                  var id = await createUser(email, password);
+                  storeId(id);
+                  navigation.replace('TimeRestriction');
                 }}/>
       </TouchableHighlight>
 
