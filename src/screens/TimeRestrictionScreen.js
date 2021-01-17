@@ -21,28 +21,28 @@ const { width, height } = dimensions;
 
 
 const TimeRestriction = ({ }) => {
-    const[timeBefore,setTimeBefore] = useState(new Date());
+    const[timeBefore,setTimeBefore] = useState(new Date(2000,1,1,8,30,0,0));
     const[showBefore, setShowBefore] = useState(false);
     const[edittedBefore, setEdittedBefore] = useState(false);
 
-    const[timeAfter,setTimeAfter] =  useState(new Date());
+    const[timeAfter,setTimeAfter] =  useState(new Date(2000,1,1,20,30,0,0));
     const[showAfter, setShowAfter] = useState(false);
     const[edittedAfter,setEdittedAfter] = useState(false);
 
-    const[lunchStart,setLunchStart] =  useState(new Date());
+    const[lunchStart,setLunchStart] =  useState(new Date(2000,1,1,13,0,0,0));
     const[lunchStartShow, setLunchStartShow] = useState(false);
     const[edittedLunchStart,setEdittedLunchStart] = useState(false);
 
-    const[lunchEnd,setLunchEnd] =  useState(new Date());
+    const[lunchEnd,setLunchEnd] =  useState(new Date(2000,1,1,14,0,0,0));
     const[lunchEndShow, setLunchEndShow] = useState(false);
     const[edittedLunchEnd,setEdittedLunchEnd] = useState(false);
 
 
-    const[dinnerStart,setDinnerStart] =  useState(new Date());
+    const[dinnerStart,setDinnerStart] =  useState(new Date(2000,1,1,19,0,0,0));
     const[dinnerStartShow, setDinnerStartShow] = useState(false);
     const[edittedDinnerStart,setEdittedDinnerStart] = useState(false);
 
-    const[dinnerEnd,setDinnerEnd] =  useState(new Date());
+    const[dinnerEnd,setDinnerEnd] =  useState(new Date(2000,1,1,20,0,0,0));
     const[dinnerEndShow, setDinnerEndShow] = useState(false);
     const[edittedDinnerEnd,setEdittedDinnerEnd] = useState(false);
 
@@ -107,7 +107,6 @@ const TimeRestriction = ({ }) => {
     }
     
     const formatTime = (currentTime) =>{
-        console.log(currentTime)
         var strTime = currentTime.getHours().toString();
         var minute = currentTime.getMinutes();
         var strMin = '';
@@ -139,7 +138,7 @@ const TimeRestriction = ({ }) => {
     }
 
     const clearTime = (index) => {
-        console.log(restrictions)
+        console.log(restrictions);
         setCurrDay(index);
         setTimeBefore(restrictions[index].Before);
         setShowBefore(false);
@@ -166,9 +165,9 @@ const TimeRestriction = ({ }) => {
         var cpyArr = [...completed];
         cpyArr[currDay] = true;
         setCompleted(cpyArr);
-        var cpyRes = JSON.parse(JSON.stringify(restrictions));
-        cpyRes[currDay] = {Before:timeBefore,After:timeAfter,Lunch:[lunchStart,lunchEnd],Dinner:[dinnerStart,dinnerEnd],Break:breakTime};
-        setRestriction(cpyRes);
+        var copyRes = {...restrictions};
+        copyRes[currDay] = {Before:timeBefore,After:timeAfter,Lunch:[lunchStart,lunchEnd],Dinner:[dinnerStart,dinnerEnd],Break:breakTime};
+        setRestriction(copyRes);
     }
     
     const renderItem = ({item,index}) => {
@@ -237,7 +236,7 @@ const TimeRestriction = ({ }) => {
                         <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictions[currDay].Dinner[1])}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginBottom: 15}}>
+                {/* <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginBottom: 15}}>
                     <Text style={{marginLeft: width *0.15, marginRight: width * 0.05}}>Breaks Between Tasks:</Text>
                     <Picker
                     selectedValue={breakTime}
@@ -251,7 +250,7 @@ const TimeRestriction = ({ }) => {
                     <Picker.Item label="15 Minutes" value="15" />
                     <Picker.Item label="20 Minutes" value="20" />
                 </Picker>
-                </View>
+                </View> */}
             </View>
             <TouchableHighlight style={styles.loginButtonWrapper}>
                 <Button title='ADD' style={styles.button} color="#204969" onPress={onClickAdd}/>
