@@ -9,10 +9,12 @@ import {
     Text,
     Button,
     TouchableHighlight,
-    TextInput
+    TextInput,
+    ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import useSetId from '../hooks/useSetId';
 
 const { width, height } = Dimensions.get('window');
 
@@ -21,9 +23,11 @@ const buttonColor = Platform.OS === 'ios' ? '#ffffff' : '#204969';
 const LogIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading,setLoading]= useState(false);
+    const [storeId] = useSetId();
     return (
         <SafeAreaView style={styles.somecontainer}>
-            <KeyboardAwareScrollView style={styles.container}>
+            {loading?<ActivityIndicator size="large" color="#0000ff" />:<KeyboardAwareScrollView style={styles.container}>
                 <View style={styles.imageContainer}>
                     <Image
                         resizeMode="contain"
@@ -38,19 +42,36 @@ const LogIn = ({ navigation }) => {
                         keyboardType="email-address"
                         placeholder=" Enter Username/email"
                         value={email}
+                        onChangeText={text=>setEmail(text)}
                     />
 
                     <TextInput
                         style={styles.textInputStyle}
                         returnKeyType="next"
                         //textContentType='Password'
+                        secureTextEntry
                         placeholder=" Enter password"
                         value={password}
+                        onChangeText={text=>setPassword(text)}
                     />
                     <TouchableHighlight style={styles.loginButtonWrapper}>
                         <Button title="LOGIN" color={buttonColor} style={styles.menuItem}
-                onPress={() => {
-                  login(email, password);
+                onPress={async () => {
+                    console.log(email);
+                    console.log(password);
+                    setLoading(true);
+                    var id = await login(email, password);
+                    console.log(id);
+                    if(id === -1){
+                        setLoading(false);
+                        console.log("your dumb, put the right password pls");
+                    }else{
+                        storeId(id);
+                        setLoading(false);
+                        console.log('hello');
+                        navigation.replace('Home');
+                    }
+
                 }}/>
                     </TouchableHighlight>
                 </View>
@@ -66,7 +87,7 @@ const LogIn = ({ navigation }) => {
                         Forgot Password?
                     </Text>
                 </View>
-            </KeyboardAwareScrollView>
+            </KeyboardAwareScrollView>}
         </SafeAreaView>
     );
 }

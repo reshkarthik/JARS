@@ -23,7 +23,11 @@ const navigator = createStackNavigator(
     Todo,
   },
   {
+<<<<<<< HEAD
     initialRouteName: 'AddTask',
+=======
+    initialRouteName: 'Home',
+>>>>>>> 4e3ff4b34b18c42f50ad4a897380fd5d89ea99df
     defaultNavigationOptions: {
       headerShown: false,
     },

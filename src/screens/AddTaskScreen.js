@@ -7,7 +7,6 @@ import {
     Dimensions,
     Button,
     ScrollView,
-    KeyboardAvoidingView,
     TouchableHighlight,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
