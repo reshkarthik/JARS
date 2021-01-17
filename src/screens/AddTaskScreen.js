@@ -10,7 +10,7 @@ import {
     KeyboardAvoidingView,
     TouchableHighlight,
 } from 'react-native';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Picker} from '@react-native-picker/picker';
 import { Feather } from '@expo/vector-icons';
@@ -29,38 +29,41 @@ const AddTask = ({ navigation }) => {
     const [state, setState] = useState('');
     return (
         <SafeAreaView style={styles.container}>
-        <Image source={require('../../images/JARS_logo.png')}/>
-        
-        <View style={styles.add}>
-            <Text style={styles.text}> Add </Text> 
-                <Picker
-                    selectedValue={state.item}
-                    style={{height: 50, width: 125, }}
-                    dropdownIconColor='#000000'
-                    onValueChange={(itemValue, itemIndex) =>
-                        setState({item: itemValue})
-                    }>
-                    <Picker.Item label="task" value="task" />
-                    <Picker.Item label="event" value="event" />
-                </Picker>
-                <Feather style={styles.iconStyle} name="plus-circle" />
-        </View>
-        <View style={styles.hairline} />
 
-        {/* COMPONENT for rectangle task*/}
-        <TaskComponent/>
+            <Image source={require('../../images/JARS_logo.png')}/>
+            
+            <View style={styles.add}>
+                <Text style={styles.text}> Add </Text> 
+                    <Picker
+                        selectedValue={state.item}
+                        style={{height: 50, width: 125, }}
+                        dropdownIconColor='#000000'
+                        onValueChange={(itemValue, itemIndex) =>
+                            setState({item: itemValue})
+                        }>
+                        <Picker.Item label="task" value="task" />
+                        <Picker.Item label="event" value="event" />
+                    </Picker>
+                    <Feather style={styles.iconStyle} name="plus-circle" />
+            </View>
+            <View style={styles.hairline} />
 
-        {/* COMPONENT for rectangle event*/}
-        <EventComponent/>
+            {/* COMPONENT for rectangle task*/}
+            <TaskComponent/>
 
-           {/* Add Button; add an onpress action */}
-        <TouchableHighlight style={styles.loginButtonWrapper}>
-            <Button title=" ADD " color="#204969" />
-        </TouchableHighlight>
+            {/* COMPONENT for rectangle event*/}
+            <EventComponent/>
 
-        <KeyboardAvoidingView style={styles.bottomMenu}>
-            <BottomMenu />
-        </KeyboardAvoidingView>
+            {/* Add Button; add an onpress action */}
+            <TouchableHighlight style={styles.loginButtonWrapper}>
+                <Button title=" ADD " color="#204969" />
+            </TouchableHighlight>
+
+
+            <KeyboardAvoidingView style={styles.bottomMenu}>
+                <BottomMenu />
+            </KeyboardAvoidingView>
+
         </SafeAreaView>
     );
 }
@@ -69,12 +72,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#E6E7E9',
+        minHeight: Math.round(height),
         alignItems: 'center',
+    },
+    somecontainer: {
+        flex: 1,
+        backgroundColor: '#E6E7E9',
+        minHeight: Math.round(height),
+        
     },
     hairline: {
         backgroundColor: '#A2A2A2',
         height: 2,
-        width: width
+        width: width,
       },
     dropDownColor: {
         backgroundColor: '#B4BCC3',
@@ -99,10 +109,10 @@ const styles = StyleSheet.create({
       },
     loginButtonWrapper: {
         paddingTop: height * 0.01,
-      
         width: width * 0.25,
         justifyContent: 'center',
         marginBottom: 10,
+        marginTop: 10,
     },
     bottomMenu: {
         position: 'absolute',
