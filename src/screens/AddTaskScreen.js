@@ -34,7 +34,7 @@ const AddTask = ({ navigation }) => {
     const [eventDate, setEventDate] = useState(new Date());
     const [eventStart,setEventStart] = useState(new Date());
     const [eventEnd, setEventEnd] = useState(new Date());
-    const [repeat,setRepeat] = useState('');
+    const [repeat,setRepeat] = useState('never');
     const [repeatUntil,setRepeatUntil] = useState(new Date());
 
     return (
@@ -61,7 +61,7 @@ const AddTask = ({ navigation }) => {
             {/* COMPONENT for rectangle task*/}
             {state === 'task' ? <TaskComponent setTaskName={setTaskName} setDueDate={setDueDate} setNumHours={setNumHours} />:  
                                 <EventComponent setEventName={setEventName} setEventDate={setEventDate} 
-                                setEvenStart={setEventStart} setEventEnd={setEventEnd} 
+                                setEventStart={setEventStart} setEventEnd={setEventEnd} 
                                 setRepeat={setRepeat} setRepeatUntil={setRepeatUntil} />
             }
             {/* Add Button; add an onpress action */}

@@ -17,10 +17,13 @@ const { height } = dimensions;
 
 
 const EventComponent = ({setEventName, setEventDate, 
-    setStart, setEventEnd, setRepeat, setRepeatUntil}) => {
+    setEventStart, setEventEnd, setRepeat, setRepeatUntil}) => {
 
     const [value,setValue] = useState('');
-    
+
+    const [date,setDate] = useState(new Date());
+    const [dateShow,setDateShow] = useState(false);
+
     const[timeStart,setTimeStart] =  useState(new Date());
     const[showStart, setShowStart] = useState(false);
     const[edittedStart,setEdittedStart] = useState(false);
@@ -29,27 +32,27 @@ const EventComponent = ({setEventName, setEventDate,
     const[showStop, setShowStop] = useState(false);
     const[edittedStop,setEdittedStop] = useState(false);
     
-    const [date,setDate] = useState(new Date());
-    const [dateShow,setDateShow] = useState(false);
+    const [repeat, setNewRepeat] = useState('never');
 
+  
     const [repeatDate, setRepeatDate] = useState(new Date());
     const [repeatDateShow, setRepeatDateShow] = useState(false);
-
-    const [repeat, setNewRepeat] = useState('Never');
 
     const onChangeStart = (event,selectedValue)=>{
         setShowStart(false);
         setEdittedStart(true);
-        setStart(selectedValue);
-        const selectedTime = selectedValue || new Date();
+       
+        const selectedTime = selectedValue;
         setTimeStart(selectedTime);
+        setEventStart(selectedTime);
     }
 
     const onChangeStop = (event,selectedValue)=>{
         setShowStop(false);
         setEdittedStop(true);
-        setEventEnd(false);
-        const selectedTime = selectedValue || new Date();
+        
+        const selectedTime = selectedValue;
+        setEventEnd(selectedTime);
         setTimeStop(selectedTime);
     }
 
