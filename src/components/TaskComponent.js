@@ -1,17 +1,10 @@
 import React, {useState} from 'react';
 import {
-    StyleSheet,
     View,
-    Image,
     Text,
     Dimensions,
-    Button,
-    ScrollView,
-    TouchableHighlight,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {Picker} from '@react-native-picker/picker';
-import { Feather } from '@expo/vector-icons';
+
 import { TextInput } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -40,7 +33,6 @@ const TaskComponent = ({ setTaskName, setDueDate, setNumHours}) => {
             var day = currentDate.getDate().toString();
             var year = currentDate.getFullYear().toString();
             return `${month}/${day}/${year}`;
-            
         }
 
         return (
@@ -80,7 +72,8 @@ const TaskComponent = ({ setTaskName, setDueDate, setNumHours}) => {
                     borderRadius: 3,
                     fontSize: 14,
                     marginBottom: 15 }}> 
-                    <Text onPress={()=>setDueShow(true)}>{formatDate(due)}</Text>
+                    <Text onPress={()=>setDueShow(true)}>
+                    {formatDate(due)}</Text>
                     </View>
             </View> 
 
