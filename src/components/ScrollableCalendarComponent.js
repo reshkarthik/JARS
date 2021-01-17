@@ -50,6 +50,7 @@ const ScrollableCalendar = ({ }) => {
                 theme={{
                     selectedDayBackgroundColor: '#204969',
                     dotColor: '#204969',
+                    textSectionTitleColor: '#204969',
                     selectedDotColor: '#ffffff',
                     todayTextColor: '#41D9BD',
                     backgroundColor: '#E6E7E9',
