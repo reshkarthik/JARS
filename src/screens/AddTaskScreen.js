@@ -43,6 +43,7 @@ const AddTask = ({ navigation }) => {
             
             <View style={styles.add}>
                 <Text style={styles.text}> Add </Text> 
+                    <View style={{backgroundColor: "#B4BCC3", width:125, height: 30, justifyContent:'center'}}>
                     <Picker
                         selectedValue={state}
                         style={{height: 50, width: 125, }}
@@ -52,22 +53,31 @@ const AddTask = ({ navigation }) => {
                         }>
                         <Picker.Item label="task" value="task" />
                         <Picker.Item label="event" value="event" />
-                    </Picker> 
+                    </Picker>
+                    </View> 
             </View>
             <View style={styles.hairline} />
 
             {/* COMPONENT for rectangle task*/}
-            {state === 'task' ? <TaskComponent setTaskName={setTaskName} setDueDate={setDueDate} setNumHours={setNumHours} />:  <EventComponent/>}
-
-            {/* COMPONENT for rectangle event*/}
-          
-        
+            {state === 'task' ? <TaskComponent setTaskName={setTaskName} setDueDate={setDueDate} setNumHours={setNumHours} />:  
+                                <EventComponent setEventName={setEventName} setEventDate={setEventDate} 
+                                setEvenStart={setEventStart} setEventEnd={setEventEnd} 
+                                setRepeat={setRepeat} setRepeatUntil={setRepeatUntil} />
+            }
             {/* Add Button; add an onpress action */}
             <TouchableHighlight  style={styles.loginButtonWrapper}>
                 <Button title=" ADD " color="#204969" onPress={()=>{
                 console.log(taskName);
                 console.log(dueDate);
                 console.log(numHours);
+
+                console.log(eventName);
+                console.log(eventDate);
+                console.log(eventStart);
+                console.log(eventEnd);
+                console.log(repeat);
+                console.log(repeatUntil);
+                
             }}/>
             </TouchableHighlight>
           
@@ -109,10 +119,13 @@ const styles = StyleSheet.create({
         marginTop:4,
         fontSize: 16,
         paddingRight: 2,
+    
     },
     add : {
         flexDirection: 'row',
         paddingBottom: 5,
+        justifyContent: 'center',
+        alignContent:'center',
     },
     iconStyle: {
         fontSize: 24,
