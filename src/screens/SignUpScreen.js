@@ -70,6 +70,7 @@ const SignUp = ({ navigation }) => {
         <Button title="CREATE ACCOUNT" color={buttonColor} style={styles.menuItem}
                 onPress={async () => {
                   var id = await createUser(email, password);
+                  console.log(id);
                   storeId(id);
                   navigation.replace('TimeRestriction');
                 }}/>

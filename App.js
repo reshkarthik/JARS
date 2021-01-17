@@ -23,7 +23,7 @@ const navigator = createStackNavigator(
     Todo,
   },
   {
-    initialRouteName: 'SignIn',
+    initialRouteName: 'LogIn',
     defaultNavigationOptions: {
       headerShown: false,
     },
