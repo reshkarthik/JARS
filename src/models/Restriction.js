@@ -63,9 +63,9 @@ function createRestrictions(userId) {
       return;
   }
 
-function updateRestriction(userId, day, newRestrictions){
+function updateRestriction(userId, newRestrictions){
     var updates = {};
-    updates['/'+userId+"/"+day] = newRestrictions;
+    updates['/'+userId] = newRestrictions;
     return restrictionRef.update(updates)
 }
 

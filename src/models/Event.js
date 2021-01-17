@@ -31,11 +31,13 @@ function updateEvent(taskId, newTask){
 }
 
 function viewEvent(eventId){
-    return eventRef.child(eventId).on("value", function(snapshot) {
-        console.log(snapshot.val());
-      }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-      });
+  let event;
+  eventRef.child(eventId).on("value", function(snapshot) {
+    event = snapshot.val();
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  return event;
 }
 
 function deleteEvent(userId, eventId){

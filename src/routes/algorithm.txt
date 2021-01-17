@@ -1,0 +1,27 @@
+greedySchedule(t, d) { // schedule given execution times and deadlines
+    sort tasks by increasing deadline (d[1] <= ... <= d[n])
+    for any tasks with a deadline within a day of each other, prioritize the one with more required hours
+    f_prev = 0 // f is the finish time of previous task
+    f_prev = start time of today according to user's time-restrictions
+    for (i = 1 to n) do {
+        while (t[i] > 0):
+            temp_start = f_prev
+            temp_end = t[i] + temp_start
+            if there exists an event k with start time after temp_start and before temp_end:
+                k = first event found within temp_start and temp_end
+                set temp_end = start_time[k] - user's break time for day(f_prev)
+                assign a scheduled task with parent task i to start at temp_start and at temp_end
+                time_done = temp_end - temp_start
+                t[i] = t[i] - time_done
+                f_prev = end time of event k + user's break time for day(f_prev)
+                if f_prev > end time of today according to user's time-restrictions:
+                    f_prev = start time of tomorrow
+            else:
+                assign a scheduled task with parent task i to start at temp_start and end at temp_end
+                t[i] = 0
+                f_prev = temp_end + user's break time for day(f_prev)
+                if f_prev > end time of today accordint to user's time-restrictions:
+                    f_prev = start time of tommorow
+    }
+    return array s // return array of start times
+}
