@@ -23,7 +23,7 @@ const navigator = createStackNavigator(
     Todo,
   },
   {
-    initialRouteName: 'TimeRestriction',
+    initialRouteName: 'AddTask',
     defaultNavigationOptions: {
       headerShown: false,
     },
