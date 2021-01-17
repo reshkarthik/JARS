@@ -11,22 +11,25 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import BottomMenu from '../components/BottomBarComponent.js';
+import SettingsModal from '../components/SettingsModalComponent.js';
+import ScrollableCalendar from '../components/ScrollableCalendarComponent.js';
 
 const { width, height } = Dimensions.get('window');
 
 const buttonColor = Platform.OS === 'ios' ? '#ffffff' : '#204969';
-
 const Home = ({ navigation }) => {
+    const [modalVisible, setModalVisible] = useState(false);
     return (
-        <SafeAreaView style={styles.somecontainer}>
-            <View style={styles.container}>
-                <KeyboardAvoidingView style={styles.bottomMenu}>
-                    <BottomMenu />
-                </KeyboardAvoidingView>
-            </View>
-        </SafeAreaView>
+        //<SafeAreaView style={styles.somecontainer}>
+        <View style={styles.container}>
+            <ScrollableCalendar />
+            {/*{modalVisible === true ? <SettingsModal isVisible={setModalVisible} /> : null}*/}
+            <KeyboardAvoidingView style={styles.bottomMenu}>
+                <BottomMenu />
+            </KeyboardAvoidingView>
+        </View>
+        //</SafeAreaView>
     );
 }
 

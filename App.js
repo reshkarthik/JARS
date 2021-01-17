@@ -24,11 +24,7 @@ const navigator = createStackNavigator(
     Today
   },
   {
-<<<<<<< HEAD
-    initialRouteName: 'AddTask',
-=======
     initialRouteName: 'Home',
->>>>>>> shreya_new
     defaultNavigationOptions: {
       headerShown: false,
     },
