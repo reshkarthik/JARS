@@ -8,7 +8,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const { width, height } = Dimensions.get('window');
 
-const BottomMenu = ({ navigation }) => {
+const BottomMenu = ({ navigation, onSettingsPress }) => {
     const { routeName } = navigation.state;
     return (
         <View style={styles.container}>
@@ -55,7 +55,10 @@ const BottomMenu = ({ navigation }) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.menuItem}>
+                style={styles.menuItem}
+                onPress={() => {
+                    onSettingsPress(true);
+                }}>
                 <Feather name="settings" size={30} color="#204969" style={{ marginBottom: 5 }} />
                 <Text style={styles.menuItemText}>
                     Settings
