@@ -33,17 +33,23 @@ const AddTask = ({ navigation }) => {
             
             <View style={styles.add}>
                 <Text style={styles.text}> Add </Text> 
-                    <Picker
-                        selectedValue={state.item}
-                        style={{height: 50, width: 125, }}
-                        dropdownIconColor='#000000'
-                        onValueChange={(itemValue, itemIndex) =>
-                            setState({item: itemValue})
-                        }>
-                        <Picker.Item label="task" value="task" />
-                        <Picker.Item label="event" value="event" />
-                    </Picker>
-                    <Feather style={styles.iconStyle} name="plus-circle" />
+                    <View style={{
+                        backgroundColor:'#B4BCC3',
+                        height: 30, 
+                        justifyContent:'center',
+                        
+                     }}>
+                        <Picker
+                            selectedValue={state.item}
+                            style={{height: 50, width: 125, }}
+                            dropdownIconColor='#000000'
+                            onValueChange={(itemValue, itemIndex) =>
+                                setState({item: itemValue})
+                            }>
+                            <Picker.Item label="Task" value="task" />
+                            <Picker.Item label="Event" value="event" />
+                        </Picker>
+                    </View>
             </View>
             <View style={styles.hairline} />
 
@@ -93,8 +99,9 @@ const styles = StyleSheet.create({
         fontSize: 36,
     },
     text : {
-        marginTop: 15,
+        marginTop:4,
         fontSize: 16,
+        paddingRight: 2,
     },
     add : {
         flexDirection: 'row',
