@@ -1,4 +1,5 @@
 import React from 'react';
+const {updateRestriction} = require("../models/Restriction");
 import {
     StyleSheet,
     View,
@@ -21,28 +22,28 @@ const { width, height } = dimensions;
 
 
 const TimeRestriction = ({ }) => {
-    const[timeBefore,setTimeBefore] = useState(new Date());
+    const[timeBefore,setTimeBefore] = useState(new Date(2000,1,1,8,30,0,0));
     const[showBefore, setShowBefore] = useState(false);
     const[edittedBefore, setEdittedBefore] = useState(false);
 
-    const[timeAfter,setTimeAfter] =  useState(new Date());
+    const[timeAfter,setTimeAfter] =  useState(new Date(2000,1,1,20,30,0,0));
     const[showAfter, setShowAfter] = useState(false);
     const[edittedAfter,setEdittedAfter] = useState(false);
 
-    const[lunchStart,setLunchStart] =  useState(new Date());
+    const[lunchStart,setLunchStart] =  useState(new Date(2000,1,1,13,0,0,0));
     const[lunchStartShow, setLunchStartShow] = useState(false);
     const[edittedLunchStart,setEdittedLunchStart] = useState(false);
 
-    const[lunchEnd,setLunchEnd] =  useState(new Date());
+    const[lunchEnd,setLunchEnd] =  useState(new Date(2000,1,1,14,0,0,0));
     const[lunchEndShow, setLunchEndShow] = useState(false);
     const[edittedLunchEnd,setEdittedLunchEnd] = useState(false);
 
 
-    const[dinnerStart,setDinnerStart] =  useState(new Date());
+    const[dinnerStart,setDinnerStart] =  useState(new Date(2000,1,1,19,0,0,0));
     const[dinnerStartShow, setDinnerStartShow] = useState(false);
     const[edittedDinnerStart,setEdittedDinnerStart] = useState(false);
 
-    const[dinnerEnd,setDinnerEnd] =  useState(new Date());
+    const[dinnerEnd,setDinnerEnd] =  useState(new Date(2000,1,1,20,0,0,0));
     const[dinnerEndShow, setDinnerEndShow] = useState(false);
     const[edittedDinnerEnd,setEdittedDinnerEnd] = useState(false);
 
@@ -52,7 +53,7 @@ const TimeRestriction = ({ }) => {
 
     const [completed,setCompleted] = useState([false,false,false,false,false,false,false]);
 
-    const [restrictons,setRestriction] = useState({
+    const [restrictions,setRestriction] = useState({
         0:{Before: new Date(2000,1,1,8,30,0,0),After: new Date(2000,1,1,20,30,0,0),Lunch:[new Date(2000,1,1,13,0,0,0),new Date(2000,1,1,14,0,0,0)],Dinner:[new Date(2000,1,1,19,0,0,0),new Date(2000,1,1,20,0,0,0)], Break:5},
         1:{Before: new Date(2000,1,1,8,30,0,0),After: new Date(2000,1,1,20,30,0,0),Lunch:[new Date(2000,1,1,13,0,0,0),new Date(2000,1,1,14,0,0,0)],Dinner:[new Date(2000,1,1,19,0,0,0),new Date(2000,1,1,20,0,0,0)], Break:5},
         2:{Before: new Date(2000,1,1,8,30,0,0),After: new Date(2000,1,1,20,30,0,0),Lunch:[new Date(2000,1,1,13,0,0,0),new Date(2000,1,1,14,0,0,0)],Dinner:[new Date(2000,1,1,19,0,0,0),new Date(2000,1,1,20,0,0,0)], Break:5},
@@ -107,7 +108,6 @@ const TimeRestriction = ({ }) => {
     }
     
     const formatTime = (currentTime) =>{
-        console.log(currentTime)
         var strTime = currentTime.getHours().toString();
         var minute = currentTime.getMinutes();
         var strMin = '';
@@ -132,6 +132,10 @@ const TimeRestriction = ({ }) => {
     const onClickConfirm = () => {
         var exists = completed.includes(false);
         if(exists){
+            Object.keys(restrictions).forEach(elem =>{
+                const day = DATA[elem]["day"];
+                updateRestriction(userId, day, restrictions[elem])
+            })
             console.log("We need to do an alert here warning that")
         }else{
             console.log('we will navigate to the ome page');
@@ -139,21 +143,21 @@ const TimeRestriction = ({ }) => {
     }
 
     const clearTime = (index) => {
-        console.log(restrictons)
+        console.log(restrictions);
         setCurrDay(index);
-        setTimeBefore(restrictons[index].Before);
+        setTimeBefore(restrictions[index].Before);
         setShowBefore(false);
         setEdittedBefore(false);
         setTimeAfter(restrictions[index].After);
         setShowAfter(false);
         setEdittedAfter(false);
-        setLunchStart(restrictons[index].Lunch[0]);
+        setLunchStart(restrictions[index].Lunch[0]);
         setLunchStartShow(false);
         setEdittedLunchStart(false);
         setLunchEnd(restrictions[index].Lunch[1]);
         setLunchEndShow(false);
         setEdittedLunchEnd(false);
-        setDinnerStart(restictions[index].Dinner[0]);
+        setDinnerStart(restrictions[index].Dinner[0]);
         setDinnerStartShow(false);
         setEdittedDinnerStart(false);
         setDinnerEnd(restrictions[index].Dinner[1]);
@@ -162,78 +166,86 @@ const TimeRestriction = ({ }) => {
         setBreakTime(restrictions[index].Break);
     }
     
-
     const onClickAdd = () => {
         var cpyArr = [...completed];
         cpyArr[currDay] = true;
         setCompleted(cpyArr);
-        var cpyRes = JSON.parse(JSON.stringify(restrictons));
-        cpyRes[currDay] = {Before:timeBefore,After:timeAfter,Lunch:[lunchStart,lunchEnd],Dinner:[dinnerStart,dinnerEnd],Break:breakTime};
-        setRestriction(cpyRes);
+        var copyRes = {...restrictions};
+        copyRes[currDay] = {Before:timeBefore,After:timeAfter,Lunch:[lunchStart,lunchEnd],Dinner:[dinnerStart,dinnerEnd],Break:breakTime};
+        setRestriction(copyRes);
     }
+    
     const renderItem = ({item,index}) => {
         const color = completed[index] ? 'green': 'white';
         return( 
-        <TouchableHighlight onPress={()=>clearTime(index)} style={{flex:1,borderColor:'black',borderWidth:1,width:(width-20)*0.14, backgroundColor:(currDay === index ? 'blue': color)}}>
-            <Text style={{textAlign:'center'}}>{item.day}</Text>
+        <TouchableHighlight onPress={()=>clearTime(index)} style={{
+            borderRadius: 15, 
+            justifyContent:'center', 
+            height: height*0.04, 
+            flex:1,
+            borderColor:'#B4BCC3',borderWidth:2,
+            width:(width-20)*0.14, 
+            backgroundColor:(currDay === index ? '#204969': color)}}>
+            <Text style={{textAlign:'center', 
+            }}>{item.day}</Text>
         </TouchableHighlight>
         )
     }
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{flexDirection:'row',alignItems:'center',alignContent:'center'}}>
+            <View style={{flexDirection:'row', alignItems:'center',alignContent:'center'}}>
                 <Text style={{flex:1,fontSize:35, paddingLeft:10, textAlign:'center'}}>Time Restriction</Text>
                 {/* <Feather name="plus-circle" size={24} color="black" /> */}
             </View>
-            <View style={{flexDirection:'column'}}>
+            <View style={{flexDirection:'column', }}>
                 <View style={{height: 3, backgroundColor: 'black', marginHorizontal: '12%',}}></View>
-                <View style={{flex:0, marginVertical:10,flexDirection:'row'}}>
+                <View style={{flex:0, marginVertical:15,flexDirection:'row', paddingTop: 15}}>
                     <FlatList  horizontal={true} data={DATA} renderItem={renderItem}/>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Dont Schedule Before:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingTop: 20,marginBottom:20}}>
+                    <Text style={{marginLeft:width * 0.15}}>Dont Schedule Before:</Text>
                     {showBefore && <DateTimePicker value={timeBefore} mode={'time'} is24Hour={false} display="default" onChange={onChangeBefore}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setShowBefore(true)}>{edittedBefore?formatTime(timeBefore): formatTime(restrictons[currDay].Before)}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setShowBefore(true)}>{edittedBefore?formatTime(timeBefore): formatTime(restrictions[currDay].Before)}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Dont Schedule After:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
+                    <Text style={{marginLeft:width *0.15}}>Dont Schedule After:</Text>
                     {showAfter && <DateTimePicker value={timeAfter} mode={'time'} is24Hour={false} display="default" onChange={onChangeAfter}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setShowAfter(true)}>{edittedAfter?formatTime(timeAfter):formatTime(restrictons[currDay].After)}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setShowAfter(true)}>{edittedAfter?formatTime(timeAfter):formatTime(restrictions[currDay].After)}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Lunch:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
+                    <Text style={{marginLeft:width *0.15}}>Lunch:</Text>
                     {lunchStartShow && <DateTimePicker value={lunchStart} mode={'time'} is24Hour={false} display="default" onChange={onChangeLunchStart}/>}
                     <View style={{marginHorizontal:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setLunchStartShow(true)}>{edittedLunchStart?formatTime(lunchStart):formatTime(restrictons[currDay].Lunch[0])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setLunchStartShow(true)}>{edittedLunchStart?formatTime(lunchStart):formatTime(restrictions[currDay].Lunch[0])}</Text>
                     </View>
                     <Text>to</Text>
                     {lunchEndShow && <DateTimePicker value={lunchEnd} mode={'time'} is24Hour={false} display="default" onChange={onChangeLunchEnd}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setLunchEndShow(true)}>{edittedLunchEnd?formatTime(lunchEnd):formatTime(restrictons[currDay].Lunch[1])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setLunchEndShow(true)}>{edittedLunchEnd?formatTime(lunchEnd):formatTime(restrictions[currDay].Lunch[1])}</Text>
                     </View>
                 </View>
 
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{marginLeft:10}}>Dinner:</Text>
+                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginVertical:20}}>
+                    <Text style={{marginLeft:width *0.15}}>Dinner:</Text>
                     {dinnerStartShow && <DateTimePicker value={dinnerStart} mode={'time'} is24Hour={false} display="default" onChange={onChangeDinnerStart}/>}
                     <View style={{marginHorizontal:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerStartShow(true)}>{edittedDinnerStart?formatTime(dinnerStart):formatTime(restrictons[currDay].Dinner[0])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerStartShow(true)}>{edittedDinnerStart?formatTime(dinnerStart):formatTime(restrictions[currDay].Dinner[0])}</Text>
                     </View>
                     <Text>to</Text>
                     {dinnerEndShow && <DateTimePicker value={dinnerEnd} mode={'time'} is24Hour={false} display="default" onChange={onChangeDinnerEnd}/>}
                     <View style={{marginLeft:10, backgroundColor:'#B4BCC3', width:width*0.20,}}>
-                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictons[currDay].Dinner[1])}</Text>
+                        <Text style={{textAlign:'center'}} onPress={()=>setDinnerEndShow(true)}>{edittedDinnerEnd?formatTime(dinnerEnd):formatTime(restrictions[currDay].Dinner[1])}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',paddingVertical:10}}>
-                    <Text style={{flex:1.2,marginLeft:10}}>Breaks Between Tasks:</Text>
+                {/* <View style={{flexDirection:'row', alignItems:'center', alignContent:'center',marginBottom: 15}}>
+                    <Text style={{marginLeft: width *0.15, marginRight: width * 0.05}}>Breaks Between Tasks:</Text>
                     <Picker
                     selectedValue={breakTime}
-                    style={{flex:1.2}}
+                    style={{flex:1.2, }}
                     dropdownIconColor='#000000'
                     onValueChange={(itemValue, itemIndex) =>
                         setBreakTime(parseInt(itemValue))
@@ -243,14 +255,14 @@ const TimeRestriction = ({ }) => {
                     <Picker.Item label="15 Minutes" value="15" />
                     <Picker.Item label="20 Minutes" value="20" />
                 </Picker>
-                <View style={{flex:1}}></View>
-                </View>
+                </View> */}
             </View>
             <TouchableHighlight style={styles.loginButtonWrapper}>
-                <Button title='ADD' color="#204969" onPress={onClickAdd}/>
+                <Button title='ADD' style={styles.button} color="#204969" onPress={onClickAdd}/>
             </TouchableHighlight>
+
             <TouchableHighlight style={styles.loginButtonWrapper}>
-                <Button title='CONFIRM' color="#204969" onPress={onClickConfirm}/>
+                <Button title='CONFIRM' style={styles.button} color="#204969" onPress={onClickConfirm}/>
             </TouchableHighlight>
         </SafeAreaView>
     );
@@ -260,7 +272,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#E6E7E9',
-    }
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    loginButtonWrapper: {
+        paddingTop: height * 0.01,
+        width: width * 0.5,
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    button: {
+        borderRadius: 20,
+    },
 });
 
 export default TimeRestriction;

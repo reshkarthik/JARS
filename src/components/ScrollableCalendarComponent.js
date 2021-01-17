@@ -15,7 +15,7 @@ const ScrollableCalendar = ({ }) => {
 
     const renderItem = (item) => {
         return (
-            <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
+            <TouchableOpacity style={{ marginRight: 10, marginTop: 17, }}>
                 <Card>
                     <Card.Content>
                         <View
