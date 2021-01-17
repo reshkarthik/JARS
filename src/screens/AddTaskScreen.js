@@ -24,44 +24,51 @@ const { width } = dimensions;
 const { height } = dimensions;
 
 const AddTask = ({ navigation }) => {
-    const [task, setTask] = useState('');
-    const [event, setEvent] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState('task');
+
+    const [taskName,setTaskName] = useState("");
+    const [dueDate,setDueDate] = useState(new Date());
+    const [numHours,setNumHours] = useState(0);
+
+    const [eventName,setEventName] = useState('');
+    const [eventDate, setEventDate] = useState(new Date());
+    const [eventStart,setEventStart] = useState(new Date());
+    const [eventEnd, setEventEnd] = useState(new Date());
+    const [repeat,setRepeat] = useState('');
+    const [repeatUntil,setRepeatUntil] = useState(new Date());
+
     return (
         <SafeAreaView style={styles.container}>
             <Image source={require('../../images/JARS_logo.png')}/>
             
             <View style={styles.add}>
                 <Text style={styles.text}> Add </Text> 
-                    <View style={{
-                        backgroundColor:'#B4BCC3',
-                        height: 30, 
-                        justifyContent:'center',
-                        
-                     }}>
-                        <Picker
-                            selectedValue={state.item}
-                            style={{height: 50, width: 125, }}
-                            dropdownIconColor='#000000'
-                            onValueChange={(itemValue, itemIndex) =>
-                                setState({item: itemValue})
-                            }>
-                            <Picker.Item label="Task" value="task" />
-                            <Picker.Item label="Event" value="event" />
-                        </Picker>
-                    </View>
+                    <Picker
+                        selectedValue={state}
+                        style={{height: 50, width: 125, }}
+                        dropdownIconColor='#000000'
+                        onValueChange={(itemValue, itemIndex) =>
+                            setState(itemValue)
+                        }>
+                        <Picker.Item label="task" value="task" />
+                        <Picker.Item label="event" value="event" />
+                    </Picker> 
             </View>
             <View style={styles.hairline} />
 
             {/* COMPONENT for rectangle task*/}
-            <TaskComponent/>
+            {state === 'task' ? <TaskComponent setTaskName={setTaskName} setDueDate={setDueDate} setNumHours={setNumHours} />:  <EventComponent/>}
 
             {/* COMPONENT for rectangle event*/}
-            <EventComponent/>
+          
         
             {/* Add Button; add an onpress action */}
-            <TouchableHighlight style={styles.loginButtonWrapper}>
-                <Button title=" ADD " color="#204969" />
+            <TouchableHighlight  style={styles.loginButtonWrapper}>
+                <Button title=" ADD " color="#204969" onPress={()=>{
+                console.log(taskName);
+                console.log(dueDate);
+                console.log(numHours);
+            }}/>
             </TouchableHighlight>
           
             <KeyboardAvoidingView style={styles.bottomMenu}>
