@@ -7,215 +7,83 @@ import {
     Dimensions,
     Button,
     ScrollView,
+    KeyboardAvoidingView,
     TouchableHighlight,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Picker} from '@react-native-picker/picker';
 import { Feather } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
+import BottomMenu from '../components/BottomBarComponent.js';
+import TaskComponent from '../components/TaskComponent.js'
+import EventComponent from '../components/EventComponent.js';
 
 const dimensions = Dimensions.get('window');
 const { width } = dimensions;
 const { height } = dimensions;
 
 const AddTask = ({ navigation }) => {
-    const [task, setTask] = useState('');
-    const [event, setEvent] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState('task');
+
+    const [taskName,setTaskName] = useState("");
+    const [dueDate,setDueDate] = useState(new Date());
+    const [numHours,setNumHours] = useState(0);
+
+    const [eventName,setEventName] = useState('');
+    const [eventDate, setEventDate] = useState(new Date());
+    const [eventStart,setEventStart] = useState(new Date());
+    const [eventEnd, setEventEnd] = useState(new Date());
+    const [repeat,setRepeat] = useState('');
+    const [repeatUntil,setRepeatUntil] = useState(new Date());
+
     return (
         <SafeAreaView style={styles.container}>
-        <Image source={require('../../images/JARS_logo.png')}/>
-        
-        <View style={styles.add}>
-            <Text style={styles.text}> Add </Text> 
-                <Picker
-                    selectedValue={state.item}
-                    style={{height: 50, width: 125, }}
-                    dropdownIconColor='#000000'
-                    onValueChange={(itemValue, itemIndex) =>
-                        setState({item: itemValue})
-                    }>
-                    <Picker.Item label="task" value="task" />
-                    <Picker.Item label="event" value="event" />
-                </Picker>
-                <Feather style={styles.iconStyle} name="plus-circle" />
-        </View>
-        <View style={styles.hairline} />
-
-
-
-
-
-
-        {/* COMPONENT for rectangle task*/}
-        <View style={{  
-            marginTop: 14,
-            height: height * 0.18,
-            width: width* 0.9,
-            borderRadius: 5,
-
-            backgroundColor: '#FFFFFF', }}>
+            <Image source={require('../../images/JARS_logo.png')}/>
             
-             {/* Name */}
-            <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.57,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-
-             {/* Due date */}
-             <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Due Date: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.52,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-
-              {/* # of hours Need */}
-              <View style ={{flexDirection: 'row',  }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> # of Hours Needed: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.35,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                keyboardType="number-pad"
-                />
-            </View> 
-        </View>
-
-        {/* COMPONENT for rectangle event*/}
-        <View style={{  
-        marginTop: 14,
-        height: height * 0.35,
-        width: width* 0.9,
-        borderRadius: 5,
-        backgroundColor: '#FFFFFF', }}>
-
-            {/* name */}
-            <View style ={{flexDirection: 'row', paddingTop: 14, }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Name: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.57,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-
-            {/* date */}
-            <View style ={{flexDirection: 'row' }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Date: </Text>
-                <TextInput 
-                style={{
-                    width: width * 0.57,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
+            <View style={styles.add}>
+                <Text style={styles.text}> Add </Text> 
+                    <View style={{backgroundColor: "#B4BCC3", width:125, height: 30, justifyContent:'center'}}>
+                    <Picker
+                        selectedValue={state}
+                        style={{height: 50, width: 125, }}
+                        dropdownIconColor='#000000'
+                        onValueChange={(itemValue, itemIndex) =>
+                            setState(itemValue)
+                        }>
+                        <Picker.Item label="task" value="task" />
+                        <Picker.Item label="event" value="event" />
+                    </Picker>
+                    </View> 
             </View>
+            <View style={styles.hairline} />
 
-            {/* start time */}            
-            <View style ={{flexDirection: 'row'  }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Start Time: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.2,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
+            {/* COMPONENT for rectangle task*/}
+            {state === 'task' ? <TaskComponent setTaskName={setTaskName} setDueDate={setDueDate} setNumHours={setNumHours} />:  
+                                <EventComponent setEventName={setEventName} setEventDate={setEventDate} 
+                                setEvenStart={setEventStart} setEventEnd={setEventEnd} 
+                                setRepeat={setRepeat} setRepeatUntil={setRepeatUntil} />
+            }
+            {/* Add Button; add an onpress action */}
+            <TouchableHighlight  style={styles.loginButtonWrapper}>
+                <Button title=" ADD " color="#204969" onPress={()=>{
+                console.log(taskName);
+                console.log(dueDate);
+                console.log(numHours);
 
-            {/* Stop Time */}
-            <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Stop Time: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.2,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-
-            <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.2,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View>
-
-            <View style ={{flexDirection: 'row', }}> 
-                <Text style={{marginTop: 3, fontSize: 16, paddingHorizontal: 10, }}> Repeat Until: </Text>
-                <TextInput 
-                style={{
-                    paddingLeft: width * 0.02,
-                    width: width * 0.4,
-                    backgroundColor: '#B4BCC3',
-                    borderRadius: 3,
-                    flexDirection: 'row',
-                    fontSize: 14,
-                    marginBottom: 15 }}
-                returnKeyType="next"
-                />
-            </View> 
-        </View>
-
-      
-
-
-
-           {/* Add Button; add an onpress action */}
-        <TouchableHighlight style={styles.loginButtonWrapper}>
-            <Button title=" ADD " color="#204969" />
-        </TouchableHighlight>
+                console.log(eventName);
+                console.log(eventDate);
+                console.log(eventStart);
+                console.log(eventEnd);
+                console.log(repeat);
+                console.log(repeatUntil);
+                
+            }}/>
+            </TouchableHighlight>
+          
+            <KeyboardAvoidingView style={styles.bottomMenu}>
+                <BottomMenu />
+            </KeyboardAvoidingView>
 
         </SafeAreaView>
     );
@@ -225,12 +93,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#E6E7E9',
+        minHeight: Math.round(height),
         alignItems: 'center',
+    },
+    somecontainer: {
+        flex: 1,
+        backgroundColor: '#E6E7E9',
+        minHeight: Math.round(height),
+        
     },
     hairline: {
         backgroundColor: '#A2A2A2',
         height: 2,
-        width: width
+        width: width,
       },
     dropDownColor: {
         backgroundColor: '#B4BCC3',
@@ -241,12 +116,16 @@ const styles = StyleSheet.create({
         fontSize: 36,
     },
     text : {
-        marginTop: 15,
+        marginTop:4,
         fontSize: 16,
+        paddingRight: 2,
+    
     },
     add : {
         flexDirection: 'row',
         paddingBottom: 5,
+        justifyContent: 'center',
+        alignContent:'center',
     },
     iconStyle: {
         fontSize: 24,
@@ -255,11 +134,14 @@ const styles = StyleSheet.create({
       },
     loginButtonWrapper: {
         paddingTop: height * 0.01,
-      
         width: width * 0.25,
         justifyContent: 'center',
         marginBottom: 10,
-
+        marginTop: 10,
+    },
+    bottomMenu: {
+        position: 'absolute',
+        bottom: 0,
     },
 });
 

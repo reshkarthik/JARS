@@ -21,15 +21,15 @@ const buttonColor = Platform.OS === 'ios' ? '#ffffff' : '#204969';
 const Home = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        //<SafeAreaView style={styles.somecontainer}>
-        <View style={styles.container}>
-            <ScrollableCalendar />
-            {/*{modalVisible === true ? <SettingsModal isVisible={setModalVisible} /> : null}*/}
-            <KeyboardAvoidingView style={styles.bottomMenu}>
-                <BottomMenu />
-            </KeyboardAvoidingView>
-        </View>
-        //</SafeAreaView>
+        <SafeAreaView style={styles.somecontainer}>
+            <View style={styles.container}>
+                <ScrollableCalendar />
+                {/*{modalVisible === true ? <SettingsModal isVisible={setModalVisible} /> : null}*/}
+                <KeyboardAvoidingView style={styles.bottomMenu}>
+                    <BottomMenu />
+                </KeyboardAvoidingView>
+            </View>
+        </SafeAreaView>
     );
 }
 
